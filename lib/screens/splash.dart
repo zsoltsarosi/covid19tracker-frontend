@@ -1,5 +1,5 @@
 import 'package:covid19tracker/helper/WorldAggregatedFeed.dart';
-import 'package:covid19tracker/screens/home.dart';
+import 'package:covid19tracker/screens/MainScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -29,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
       backgroundColor: Colors.black,
       body: Center(
         child: Shimmer.fromColors(
-            child: Text("Initializing ..."), baseColor: Colors.grey[500], highlightColor: Colors.white),
+            child: Text("Loading data ..."), baseColor: Colors.grey[500], highlightColor: Colors.white),
       ),
     );
   }

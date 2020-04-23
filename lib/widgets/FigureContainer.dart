@@ -9,8 +9,8 @@ class FigureContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-      padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
+      margin: const EdgeInsets.fromLTRB(15, 5, 15, 20),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       decoration: new BoxDecoration(
         color: Colors.white.withOpacity(0.9),
         borderRadius: new BorderRadius.circular(5.0),
