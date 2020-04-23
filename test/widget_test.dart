@@ -5,26 +5,27 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
+import 'package:covid19tracker/helper/WorldAggregatedFeed.dart';
+import 'package:covid19tracker/model/WorldAggregated.dart';
+import 'package:covid19tracker/screens/MainScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:covid19tracker/main.dart';
+import 'package:mockito/mockito.dart';
+
+class WorldAggregatedFeedMock extends Mock implements WorldAggregatedFeed {
+  Future<List<WorldAggregated>> getWorldData() async {
+    return Future.value(<WorldAggregated>[]);
+  }
+}
+
+Widget buildTestableWidget(Widget widget) {
+  return MediaQuery(data: MediaQueryData(), child: MaterialApp(home: widget));
+}
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+  testWidgets('Main screen smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp());
-
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    await tester.pumpWidget(buildTestableWidget(MainScreen(feed: WorldAggregatedFeedMock())));
   });
 }

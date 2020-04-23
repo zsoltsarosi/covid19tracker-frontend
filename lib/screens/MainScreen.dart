@@ -16,80 +16,97 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  List<WorldAggregated> _data;
+  Future<List<WorldAggregated>> _dataFuture;
 
   PageController _pageController = new PageController(initialPage: 0);
 
   @override
   void initState() {
     super.initState();
-
-    widget.feed.getWorldData().then((List<WorldAggregated> data) {
-      setState(() {
-        _data = data;
-      });
-    });
+    _dataFuture = widget.feed.getWorldData();
   }
 
   @override
   Widget build(BuildContext context) {
-    final pages = <TabPage>{
-      TabPage(name: 'World', icon: Icons.public, widget: Home(_data)),
-      TabPage(name: 'Countries', icon: Icons.details, widget: Countries()),
-      TabPage(name: 'News', icon: Icons.rss_feed, widget: News()),
-    };
-
     // TextTheme textTheme = Theme.of(context).textTheme;
 
-    return new Stack(children: [
-      new Container(
-        decoration: new BoxDecoration(
-            gradient: new LinearGradient(
-          begin: FractionalOffset.topCenter,
-          end: FractionalOffset.bottomCenter,
-          colors: [
-            Colors.blueGrey,
-            Color.fromARGB(255, 150, 171, 182),
-          ],
-          stops: [0.0, 1.0],
-        )),
-      ),
-      Scaffold(
-        backgroundColor: const Color(0x00000000),
-        appBar: AppBar(
-          backgroundColor: const Color(0x00000000),
-          elevation: 0.0,
-          title: const Text("covid-19 tracker"),
-          bottom: new CustomTabBar(
-            pageController: _pageController,
-            pageNames: [for (var page in pages) page.name],
-          ),
-          actions: <Widget>[
-            Padding(
-                padding: EdgeInsets.only(right: 20.0),
-                child: GestureDetector(
-                  onTap: () {},
-                  child: Icon(
-                    Icons.person,
-                    size: 26.0,
-                  ),
-                )),
-          ],
-        ),
-        drawer: DrawerWidget(),
-        body: new PageView(
-          controller: _pageController,
-          children: [for (var page in pages) page.widget],
-        ),
-      )
-    ]);
+    return FutureBuilder<List<WorldAggregated>>(
+      future: _dataFuture,
+      builder: (BuildContext context, AsyncSnapshot<List<WorldAggregated>> snapshot) {
+        Widget content;
+
+        if (snapshot.hasData) {
+          final pages = <TabPage>{
+            TabPage(name: 'World', icon: Icons.public, widget: Home(snapshot.data)),
+            TabPage(name: 'Countries', icon: Icons.details, widget: Countries()),
+            TabPage(name: 'News', icon: Icons.rss_feed, widget: News()),
+          };
+
+          content = Stack(children: [
+            Container(
+              decoration: new BoxDecoration(
+                  gradient: new LinearGradient(
+                begin: FractionalOffset.topCenter,
+                end: FractionalOffset.bottomCenter,
+                colors: [
+                  Colors.blueGrey,
+                  Color.fromARGB(255, 150, 171, 182),
+                ],
+                stops: [0.0, 1.0],
+              )),
+            ),
+            Scaffold(
+              backgroundColor: const Color(0x00000000),
+              appBar: AppBar(
+                backgroundColor: const Color(0x00000000),
+                elevation: 0.0,
+                title: const Text("covid-19 tracker"),
+                bottom: new CustomTabBar(
+                  pageController: _pageController,
+                  pageNames: [for (var page in pages) page.name],
+                ),
+                actions: <Widget>[
+                  Padding(
+                      padding: EdgeInsets.only(right: 20.0),
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: Icon(
+                          Icons.person,
+                          size: 26.0,
+                        ),
+                      )),
+                ],
+              ),
+              drawer: DrawerWidget(),
+              body: new PageView(
+                controller: _pageController,
+                children: [for (var page in pages) page.widget],
+              ),
+            )
+          ]);
+        } else if (snapshot.hasError) {
+          content = Icon(
+            Icons.error_outline,
+            color: Colors.red,
+            size: 60,
+          );
+        } else {
+          content = Center(child: SizedBox(
+            child: CircularProgressIndicator(),
+            width: 20,
+            height: 20,
+          ));
+        }
+        return content;
+      },
+    );
   }
 }
 
 class CustomTabBar extends AnimatedWidget implements PreferredSizeWidget {
   final PageController pageController;
   final List<String> pageNames;
-  
+
   CustomTabBar({this.pageController, this.pageNames}) : super(listenable: pageController);
 
   @override

@@ -8,7 +8,7 @@ class Home extends StatelessWidget {
 
   final List<WorldAggregated> data;
   
-  Home(this.data);
+  Home(this.data) : assert(data != null);
   
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class Home extends StatelessWidget {
         child: Column(
             children: <Widget>[
               Expanded(child: WorldAggregatedCurrent(data: data.last), flex: 1),
-              Expanded(child: WorldDailyChart(data, Theme.of(context).colorScheme), flex: 3),
+              Expanded(child: WorldDailyChart(data: data, colorScheme: Theme.of(context).colorScheme), flex: 3),
             ],
           ),
       );

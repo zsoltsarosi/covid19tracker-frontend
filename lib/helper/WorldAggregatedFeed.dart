@@ -1,8 +1,8 @@
 import 'dart:convert';
-import 'dart:io';
+// import 'dart:io';
 
 import 'package:covid19tracker/model/WorldAggregated.dart';
-import 'package:path_provider/path_provider.dart';
+// import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 
 class WorldAggregatedFeed {
@@ -10,11 +10,11 @@ class WorldAggregatedFeed {
 
   String _url = "http://10.0.2.2:54820/api/worldaggregated";
 
-  Future<String> get _localPath async {
-    final directory = await getApplicationDocumentsDirectory();
+  // Future<String> get _localPath async {
+  //   final directory = await getApplicationDocumentsDirectory();
 
-    return directory.path;
-  }
+  //   return directory.path;
+  // }
 
   // Future<File> get _localFile async {
   //   final path = await _localPath;
@@ -34,6 +34,9 @@ class WorldAggregatedFeed {
   }
 
   Future<List<WorldAggregated>> getWorldData() async {
+    // TODO temp to simulate delay
+    await Future.delayed(new Duration(seconds: 2));
+
     final response = await http.get(_url);
 
     if (response.statusCode == 200) {

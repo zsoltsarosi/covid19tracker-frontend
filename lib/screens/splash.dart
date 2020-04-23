@@ -18,6 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void onStart() async {
+    // TODO temp to simulate splash screen
     await Future.delayed(new Duration(seconds: 1));
     Navigator.pushReplacement(context,
         MaterialPageRoute(builder: (context) => MainScreen(feed: WorldAggregatedFeed()))); //push to next screen

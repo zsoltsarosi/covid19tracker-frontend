@@ -7,13 +7,26 @@ import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:intl/intl.dart';
 
-class WorldDailyChart extends StatelessWidget {
+class WorldDailyChart extends StatefulWidget {
   final List<WorldAggregated> data;
   final ColorScheme colorScheme;
 
+  WorldDailyChart({Key key, @required this.data, @required this.colorScheme}) : super(key: key);
+
+  @override
+  _WorldDailyChartState createState() => _WorldDailyChartState();
+}
+
+class _WorldDailyChartState extends State<WorldDailyChart> {
+  List<WorldAggregated> _data;
+  ColorScheme _colorScheme;
   List<charts.Series> _seriesList;
 
-  WorldDailyChart(this.data, this.colorScheme) {
+  @override
+  void initState() {
+    super.initState();
+    _data = widget.data;
+    _colorScheme = widget.colorScheme;
     _seriesList = _createSeries();
   }
 
@@ -54,12 +67,12 @@ class WorldDailyChart extends StatelessWidget {
   /// Create series list with multiple seriess
   List<charts.Series<WorldMetric, String>> _createSeries() {
     final uncertain = [
-      for (var piece in data) WorldMetric(piece.date, piece.confirmed - piece.recovered - piece.deaths)
+      for (var piece in _data) WorldMetric(piece.date, piece.confirmed - piece.recovered - piece.deaths)
     ];
 
-    final recovered = [for (var piece in data) WorldMetric(piece.date, piece.recovered)];
+    final recovered = [for (var piece in _data) WorldMetric(piece.date, piece.recovered)];
 
-    final died = [for (var piece in data) WorldMetric(piece.date, piece.deaths)];
+    final died = [for (var piece in _data) WorldMetric(piece.date, piece.deaths)];
 
     return [
       new charts.Series<WorldMetric, String>(
@@ -67,20 +80,20 @@ class WorldDailyChart extends StatelessWidget {
           domainFn: (WorldMetric data, _) => new DateFormat("yyyy.MM.dd").format(data.day),
           measureFn: (WorldMetric data, _) => data.cases,
           data: uncertain,
-          colorFn: (WorldMetric data, _) => this.colorScheme.confirmed.toChartColor()),
+          colorFn: (WorldMetric data, _) => _colorScheme.confirmed.toChartColor()),
       new charts.Series<WorldMetric, String>(
         id: 'Recovered',
         domainFn: (WorldMetric data, _) => new DateFormat("yyyy.MM.dd").format(data.day),
         measureFn: (WorldMetric data, _) => data.cases,
         data: recovered,
-        colorFn: (WorldMetric data, _) => this.colorScheme.recovered.toChartColor(),
+        colorFn: (WorldMetric data, _) => _colorScheme.recovered.toChartColor(),
       ),
       new charts.Series<WorldMetric, String>(
         id: 'Deaths',
         domainFn: (WorldMetric data, _) => new DateFormat("yyyy.MM.dd").format(data.day),
         measureFn: (WorldMetric data, _) => data.cases,
         data: died,
-        colorFn: (WorldMetric data, _) => this.colorScheme.died.toChartColor(),
+        colorFn: (WorldMetric data, _) => _colorScheme.died.toChartColor(),
       ),
     ];
   }
