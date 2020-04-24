@@ -32,40 +32,34 @@ class _WorldDailyChartState extends State<WorldDailyChart> {
 
   @override
   Widget build(BuildContext context) {
-    // Create the ticks to be used the domain axis.
-    final staticTicks = List<charts.TickSpec<String>>();
-    for (var i = 20; i <= 22; i++)
-      for (var j = 1; j <= 12; j++) {
-        final yearFull = 2000 + i;
-        final twoDigitJ = j.toString().padLeft(2, '0');
-        var label = "$twoDigitJ.01";
-        if (j == 1) label = "'$i.$twoDigitJ.01";
-        staticTicks.add(charts.TickSpec('$yearFull.$twoDigitJ.01', label: label));
-      }
-
     return FigureContainer(
         height: 300,
-        child: charts.BarChart(
+        child: charts.LineChart(
           _seriesList,
           animate: false,
-          barGroupingType: charts.BarGroupingType.stacked,
           behaviors: [
-            new charts.SeriesLegend(
+            charts.SeriesLegend(
               entryTextStyle: charts.TextStyleSpec(fontSize: 10),
             )
           ],
-          domainAxis: new charts.OrdinalAxisSpec(
+          domainAxis: charts.NumericAxisSpec(
             // Make sure that we draw the domain axis line.
             showAxisLine: true,
-            // But don't draw anything else.
-            //renderSpec: new charts.NoneRenderSpec(),
-            tickProviderSpec: new charts.StaticOrdinalTickProviderSpec(staticTicks),
+            tickFormatterSpec: charts.BasicNumericTickFormatterSpec((num value) {
+              var date = DateTime(2020, 1, 1).add(Duration(days: value.round()));
+              return DateFormat.MMMd().format(date);
+            }),
           ),
+          defaultRenderer: charts.LineRendererConfig(includeLine: true, includeArea: true, stacked: true),
         ));
   }
 
+  int daysSince2020Jan1(DateTime date) {
+    return date.difference(DateTime(2020, 1, 1)).inDays;
+  }
+
   /// Create series list with multiple seriess
-  List<charts.Series<WorldMetric, String>> _createSeries() {
+  List<charts.Series<WorldMetric, int>> _createSeries() {
     final uncertain = [
       for (var piece in _data) WorldMetric(piece.date, piece.confirmed - piece.recovered - piece.deaths)
     ];
@@ -75,34 +69,34 @@ class _WorldDailyChartState extends State<WorldDailyChart> {
     final died = [for (var piece in _data) WorldMetric(piece.date, piece.deaths)];
 
     return [
-      new charts.Series<WorldMetric, String>(
-          id: 'Confirmed',
-          domainFn: (WorldMetric data, _) => new DateFormat("yyyy.MM.dd").format(data.day),
-          measureFn: (WorldMetric data, _) => data.cases,
-          data: uncertain,
-          colorFn: (WorldMetric data, _) => _colorScheme.confirmed.toChartColor()),
-      new charts.Series<WorldMetric, String>(
-        id: 'Recovered',
-        domainFn: (WorldMetric data, _) => new DateFormat("yyyy.MM.dd").format(data.day),
-        measureFn: (WorldMetric data, _) => data.cases,
-        data: recovered,
-        colorFn: (WorldMetric data, _) => _colorScheme.recovered.toChartColor(),
-      ),
-      new charts.Series<WorldMetric, String>(
+      charts.Series<WorldMetric, int>(
         id: 'Deaths',
-        domainFn: (WorldMetric data, _) => new DateFormat("yyyy.MM.dd").format(data.day),
+        domainFn: (WorldMetric data, _) => daysSince2020Jan1(data.date),
         measureFn: (WorldMetric data, _) => data.cases,
         data: died,
         colorFn: (WorldMetric data, _) => _colorScheme.died.toChartColor(),
       ),
+      charts.Series<WorldMetric, int>(
+        id: 'Recovered',
+        domainFn: (WorldMetric data, _) => daysSince2020Jan1(data.date),
+        measureFn: (WorldMetric data, _) => data.cases,
+        data: recovered,
+        colorFn: (WorldMetric data, _) => _colorScheme.recovered.toChartColor(),
+      ),
+      charts.Series<WorldMetric, int>(
+          id: 'Confirmed',
+          domainFn: (WorldMetric data, _) => daysSince2020Jan1(data.date),
+          measureFn: (WorldMetric data, _) => data.cases,
+          data: uncertain,
+          colorFn: (WorldMetric data, _) => _colorScheme.confirmed.toChartColor()),
     ];
   }
 }
 
 // stores number of confirmed or recovered or died for one day
 class WorldMetric {
-  final DateTime day;
+  final DateTime date;
   final int cases;
 
-  WorldMetric(this.day, this.cases);
+  WorldMetric(this.date, this.cases);
 }
