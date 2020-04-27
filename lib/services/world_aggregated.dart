@@ -1,12 +1,10 @@
 import 'dart:convert';
-// import 'dart:io';
 
-import 'package:covid19tracker/model/WorldAggregated.dart';
-// import 'package:path_provider/path_provider.dart';
+import 'package:covid19tracker/model/world_aggregated.dart';
 import 'package:http/http.dart' as http;
 
-class WorldAggregatedFeed {
-  static final WorldAggregatedFeed _singleton = WorldAggregatedFeed._internal();
+class WorldAggregatedService {
+  static final WorldAggregatedService _singleton = WorldAggregatedService._internal();
 
   String _url = "http://10.0.2.2:54820/api/worldaggregated";
 
@@ -21,27 +19,31 @@ class WorldAggregatedFeed {
   //   return File('$path/world_data.json');
   // }
 
-  factory WorldAggregatedFeed() {
+  factory WorldAggregatedService() {
     return _singleton;
   }
 
-  WorldAggregatedFeed._internal();
+  WorldAggregatedService._internal();
 
-  List<WorldAggregated> parseData(String responseBody) {
+  List<WorldAggregated> _parseData(String responseBody) {
     final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
-
+    
     return parsed.map<WorldAggregated>((json) => WorldAggregated.fromJson(json)).toList();
   }
 
-  Future<List<WorldAggregated>> getWorldData() async {
+  Future<List<WorldAggregated>> getData() async {
+
+    print('get data');
+
     // TODO temp to simulate delay
-    await Future.delayed(new Duration(seconds: 2));
+    await Future.delayed(new Duration(seconds: 1));
 
     final response = await http.get(_url);
 
     if (response.statusCode == 200) {
-      return parseData(response.body);
+      return _parseData(response.body);
     } else {
+      print('error');
       throw Exception('Failed to load data');
     }
   }

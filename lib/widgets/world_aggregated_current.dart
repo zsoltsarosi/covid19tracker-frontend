@@ -1,9 +1,8 @@
-import 'package:covid19tracker/model/WorldAggregated.dart';
-import 'package:covid19tracker/widgets/FigureContainer.dart';
+import 'package:covid19tracker/helper/extension_methods.dart';
+import 'package:covid19tracker/model/world_aggregated.dart';
+import 'package:covid19tracker/widgets/figure_container.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
-import 'package:covid19tracker/helper/ExtensionMethods.dart';
 
 class WorldAggregatedCurrent extends StatefulWidget {
   final WorldAggregated data;

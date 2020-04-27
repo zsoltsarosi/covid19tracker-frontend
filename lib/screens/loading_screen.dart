@@ -1,16 +1,14 @@
-import 'package:covid19tracker/helper/WorldAggregatedFeed.dart';
-import 'package:covid19tracker/screens/MainScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-class SplashScreen extends StatefulWidget {
-  SplashScreen({Key key}) : super(key: key);
+class LoadingScreen extends StatefulWidget {
+  LoadingScreen({Key key}) : super(key: key);
 
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  _LoadingScreenState createState() => _LoadingScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _LoadingScreenState extends State<LoadingScreen> {
   @override
   void initState() {
     super.initState();
@@ -20,8 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void onStart() async {
     // TODO temp to simulate splash screen
     await Future.delayed(new Duration(seconds: 1));
-    Navigator.pushReplacement(context,
-        MaterialPageRoute(builder: (context) => MainScreen(feed: WorldAggregatedFeed()))); //push to next screen
+    Navigator.pushReplacementNamed(context, '/home');
   }
 
   @override

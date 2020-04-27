@@ -1,6 +1,7 @@
 
+import 'package:covid19tracker/screens/loading_screen.dart';
+import 'package:covid19tracker/screens/main_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:covid19tracker/screens/splash.dart';
 
 void main() => runApp(MyApp());
 
@@ -15,7 +16,11 @@ class MyApp extends StatelessWidget {
         primaryColorBrightness: Brightness.dark,
         primarySwatch: Colors.blueGrey,
       ),
-      home: SplashScreen(),
+      routes: {
+        '/': (context) => LoadingScreen(),
+        '/home': (context) => MainScreen(),
+      },
+      initialRoute: '/',
     );
   }
 }
