@@ -69,8 +69,6 @@ class _WorldState extends State<World> {
     return FutureBuilder<List<WorldAggregated>>(
       future: this.getDataFuture,
       builder: (BuildContext context, AsyncSnapshot<List<WorldAggregated>> snapshot) {
-        print('${snapshot.hasData} ${snapshot.hasError}');
-
         if (snapshot.connectionState != ConnectionState.done) {
           return _buildLoader();
         }
