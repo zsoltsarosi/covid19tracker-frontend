@@ -1,5 +1,5 @@
 import 'package:covid19tracker/model/world_aggregated.dart';
-import 'package:covid19tracker/services/world_aggregated.dart';
+import 'package:covid19tracker/services/world_aggregated_service.dart';
 import 'package:covid19tracker/widgets/world_aggregated_current.dart';
 import 'package:covid19tracker/widgets/world_daily_chart.dart';
 import 'package:flutter/material.dart';

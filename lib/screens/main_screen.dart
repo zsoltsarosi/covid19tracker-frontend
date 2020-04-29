@@ -13,7 +13,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
 
-  PageController _pageController = new PageController(initialPage: 0);
+  PageController _pageController = new PageController(initialPage: 2);
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +32,9 @@ class _MainScreenState extends State<MainScreen> {
           begin: FractionalOffset.topCenter,
           end: FractionalOffset.bottomCenter,
           colors: [
-            Colors.blueGrey,
-            Color.fromARGB(255, 150, 171, 182),
+            Colors.blueGrey[200],
+            Colors.blueGrey[200],
+            //Color.fromARGB(255, 150, 171, 182),
           ],
           stops: [0.0, 1.0],
         )),
