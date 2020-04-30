@@ -5,6 +5,8 @@ import 'package:covid19tracker/pages/world.dart';
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatefulWidget {
+  static const routeName = '/home';
+
   MainScreen({Key key}) : super(key: key);
 
   @override

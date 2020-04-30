@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
 class LoadingScreen extends StatefulWidget {
+  static const routeName = '/';
+
   LoadingScreen({Key key}) : super(key: key);
 
   @override

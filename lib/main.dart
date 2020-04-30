@@ -18,11 +18,11 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blueGrey,
       ),
       routes: {
-        '/': (context) => LoadingScreen(),
-        '/home': (context) => MainScreen(),
-        '/news_reader': (context) => NewsReader(),
+        LoadingScreen.routeName: (context) => LoadingScreen(),
+        MainScreen.routeName: (context) => MainScreen(),
+        NewsReader.routeName: (context) => NewsReader(),
       },
-      initialRoute: '/',
+      initialRoute: LoadingScreen.routeName,
     );
   }
 }

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class NewsReader extends StatefulWidget {
+  static const routeName = '/news_reader';
+
   NewsReader({Key key}) : super(key: key);
 
   @override

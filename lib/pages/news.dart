@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:covid19tracker/model/news.dart' as model;
+import 'package:covid19tracker/screens/news_reader.dart';
 import 'package:covid19tracker/services/news_service.dart';
 import 'package:flutter/material.dart';
 
@@ -89,7 +90,7 @@ class _NewsState extends State<News> {
       itemBuilder: (context, index) {
         return InkWell(
           onTap: () {
-            Navigator.pushNamed(context, "/news_reader", arguments: news[index]);
+            Navigator.pushNamed(context, NewsReader.routeName, arguments: news[index]);
           },
           child: Container(
             height: 60.0,
