@@ -29,6 +29,7 @@ dependencies:
   intl:
   charts_common:
   charts_flutter:
+  webview_flutter:
 
 dev_dependencies:
   flutter_test:

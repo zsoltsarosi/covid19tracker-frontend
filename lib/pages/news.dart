@@ -87,51 +87,56 @@ class _NewsState extends State<News> {
       itemCount: news.length,
       separatorBuilder: (BuildContext context, int index) => Divider(height: 6.0),
       itemBuilder: (context, index) {
-        return Container(
-          height: 60.0,
-          decoration: new BoxDecoration(
-            color: Colors.grey.shade800.withOpacity(0.2),
-            borderRadius: new BorderRadius.circular(3.0),
-          ),
-          margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
-          child: Row(
-            children: <Widget>[
-              Expanded(
-                  flex: 4,
-                  child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 2, horizontal: 4),
-                    child: Column(
-                      children: <Widget>[
-                        Expanded(
-                          child: Container(
-                            // color: Colors.blue,
-                            child: Text(news[index].title, style: titleStyle),
+        return InkWell(
+          onTap: () {
+            Navigator.pushNamed(context, "/news_reader", arguments: news[index]);
+          },
+          child: Container(
+            height: 60.0,
+            decoration: new BoxDecoration(
+              color: Colors.grey.shade800.withOpacity(0.2),
+              borderRadius: new BorderRadius.circular(3.0),
+            ),
+            margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                    flex: 4,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(vertical: 2, horizontal: 4),
+                      child: Column(
+                        children: <Widget>[
+                          Expanded(
+                            child: Container(
+                              // color: Colors.blue,
+                              child: Text(news[index].title, style: titleStyle),
+                            ),
                           ),
-                        ),
-                        Container(
-                          // color: Colors.yellow,
-                          child: Row(
-                            children: <Widget>[
-                              Expanded(child: Text(_getNewsDateString(news[index]), style: footerStyle)),
-                              Text(news[index].sourceName, style: footerStyle)
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  )),
-              Expanded(
-                flex: 1,
-                child: news[index].imgBase64 == null
-                    ? SizedBox()
-                    : Container(
-                        // color: Colors.red,
-                        decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: MemoryImage(base64Decode(news[index].imgBase64)), fit: BoxFit.cover),
-                      )),
-              ),
-            ],
+                          Container(
+                            // color: Colors.yellow,
+                            child: Row(
+                              children: <Widget>[
+                                Expanded(child: Text(_getNewsDateString(news[index]), style: footerStyle)),
+                                Text(news[index].sourceName, style: footerStyle)
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    )),
+                Expanded(
+                  flex: 1,
+                  child: news[index].imgBase64 == null
+                      ? SizedBox()
+                      : Container(
+                          // color: Colors.red,
+                          decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: MemoryImage(base64Decode(news[index].imgBase64)), fit: BoxFit.cover),
+                        )),
+                ),
+              ],
+            ),
           ),
         );
       },

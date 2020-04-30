@@ -1,6 +1,7 @@
 
 import 'package:covid19tracker/screens/loading_screen.dart';
 import 'package:covid19tracker/screens/main_screen.dart';
+import 'package:covid19tracker/screens/news_reader.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => LoadingScreen(),
         '/home': (context) => MainScreen(),
+        '/news_reader': (context) => NewsReader(),
       },
       initialRoute: '/',
     );
