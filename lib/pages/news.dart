@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:covid19tracker/model/news.dart' as model;
 import 'package:covid19tracker/services/news_service.dart';
 import 'package:flutter/material.dart';
@@ -89,7 +91,7 @@ class _NewsState extends State<News> {
           height: 60.0,
           decoration: new BoxDecoration(
             color: Colors.grey.shade800.withOpacity(0.2),
-            borderRadius: new BorderRadius.circular(2.0),
+            borderRadius: new BorderRadius.circular(3.0),
           ),
           margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
           child: Row(
@@ -120,22 +122,14 @@ class _NewsState extends State<News> {
                   )),
               Expanded(
                 flex: 1,
-                child: FutureBuilder<String>(
-                  future: service.getImageUrl(news[index].id),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return Container(
-                          // color: Colors.red,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image: NetworkImage(snapshot.data),
-                                fit: BoxFit.cover),
-                          ));
-                    } else {
-                      return SizedBox();
-                    }
-                  },
-                ),
+                child: news[index].imgBase64 == null
+                    ? SizedBox()
+                    : Container(
+                        // color: Colors.red,
+                        decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: MemoryImage(base64Decode(news[index].imgBase64)), fit: BoxFit.cover),
+                      )),
               ),
             ],
           ),

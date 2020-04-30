@@ -9,7 +9,6 @@ class NewsService {
   static final NewsService _singleton = NewsService._internal();
 
   String _urlFeed = "http://10.0.2.2:54820/api/rssnews";
-  String _urlImage = "http://10.0.2.2:54820/api/rssnews/image/##news_id##";
 
   Future<String> get _localPath async {
     final directory = await getApplicationDocumentsDirectory();
@@ -56,17 +55,6 @@ class NewsService {
       }
 
       throw Exception('Failed to load data');
-    }
-  }
-
-  Future<String> getImageUrl(String newsId) async {
-    var requestUrl = _urlImage.replaceFirst("##news_id##", newsId);
-    final response = await http.get(requestUrl);
-    if (response.statusCode == 200) {
-      return response.body;
-    } else {
-      print('Error loading news $newsId image url. Status code: ${response.statusCode}.');
-      return '';
     }
   }
 
