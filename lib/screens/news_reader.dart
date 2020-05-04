@@ -20,7 +20,9 @@ class _NewsReaderState extends State<NewsReader> {
   Widget build(BuildContext context) {
     final model.News news = ModalRoute.of(context).settings.arguments;
 
-    print('loading: ${news.link}');
+    var url = news.endUrl;
+    if (url == null) url = news.link;
+    print('loading: $url');
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -32,7 +34,7 @@ class _NewsReaderState extends State<NewsReader> {
       ),
       body: SizedBox.expand(
         child: WebView(
-          initialUrl: news.link,
+          initialUrl: url,
           javascriptMode: JavascriptMode.unrestricted,
           onWebViewCreated: (WebViewController webViewController) {
             _controller.complete(webViewController);
