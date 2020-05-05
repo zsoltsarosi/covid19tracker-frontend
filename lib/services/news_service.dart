@@ -33,9 +33,6 @@ class NewsService {
   }
 
   Future<List<News>> getData() async {
-    // TODO temp to simulate delay
-    await Future.delayed(new Duration(seconds: 1));
-
     List<News> data = <News>[];
     final response = await http.get(_urlFeed);
 

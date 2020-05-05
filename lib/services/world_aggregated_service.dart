@@ -28,15 +28,11 @@ class WorldAggregatedService {
 
   List<WorldAggregated> _parseData(String responseBody) {
     final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
-    
+
     return parsed.map<WorldAggregated>((json) => WorldAggregated.fromJson(json)).toList();
   }
 
   Future<List<WorldAggregated>> getData() async {
-
-    // TODO temp to simulate delay
-    await Future.delayed(new Duration(seconds: 1));
-
     List<WorldAggregated> data = <WorldAggregated>[];
     final response = await http.get(_url);
 
