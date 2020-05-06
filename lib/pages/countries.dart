@@ -1,3 +1,4 @@
+import 'package:covid19tracker/helper/extension_methods.dart';
 import 'package:covid19tracker/model/country_data.dart';
 import 'package:covid19tracker/services/country_data_service.dart';
 import 'package:flutter/material.dart';
@@ -66,13 +67,18 @@ class _CountriesState extends State<Countries> {
     });
     if (!_sortAsc) data = data.reversed.toList();
 
+    TextTheme textTheme = Theme.of(context).textTheme;
+    var confirmedStyle = textTheme.caption.copyWith(color: Theme.of(context).colorScheme.confirmed);
+    var recoveredStyle = textTheme.caption.copyWith(color: Theme.of(context).colorScheme.recovered);
+    var diedStyle = textTheme.caption.copyWith(color: Theme.of(context).colorScheme.died);
+
     final dataRows = [
       for (var item in data)
         DataRow(cells: [
           DataCell(Container(child: Text(item.country))),
-          DataCell(Container(child: Text("${item.confirmed}"))),
-          DataCell(Container(child: Text("${item.recovered}"))),
-          DataCell(Container(child: Text("${item.deaths}"))),
+          DataCell(Container(child: Text("${item.confirmed}", style: confirmedStyle))),
+          DataCell(Container(child: Text("${item.recovered}", style: recoveredStyle))),
+          DataCell(Container(child: Text("${item.deaths}", style: diedStyle))),
         ])
     ];
 

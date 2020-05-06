@@ -1,10 +1,11 @@
 import 'package:charts_common/common.dart' as charts;
+import 'package:covid19tracker/constants.dart';
 import 'package:flutter/material.dart';
 
 extension CustomColorScheme on ColorScheme {
-  Color get recovered => const Color(0xFF28a745);
-  Color get confirmed => const Color(0xFF000000);
-  Color get died => const Color(0xFFdc3545);
+  Color get recovered => kRecoveredColor;
+  Color get confirmed => kConfirmedColor;
+  Color get died => kDiedColor;
 
   Color get note => const Color(0xFFffc107);
 }
