@@ -1,3 +1,4 @@
+import 'package:covid19tracker/constants.dart';
 import 'package:flutter/material.dart';
 
 class FigureContainer extends StatelessWidget {
@@ -18,7 +19,7 @@ class FigureContainer extends StatelessWidget {
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 5,
-            color: Color(0xFF222222).withOpacity(.16))
+            color: kShadowColor)
         ]
       ),
       height: height,
