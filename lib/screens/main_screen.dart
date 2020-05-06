@@ -1,3 +1,4 @@
+import 'package:covid19tracker/constants.dart';
 import 'package:covid19tracker/pages/countries.dart';
 import 'package:covid19tracker/pages/drawer.dart';
 import 'package:covid19tracker/pages/news.dart';
@@ -14,8 +15,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-
-  PageController _pageController = new PageController(initialPage: 2);
+  PageController _pageController = new PageController(initialPage: 0);
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +34,8 @@ class _MainScreenState extends State<MainScreen> {
           begin: FractionalOffset.topCenter,
           end: FractionalOffset.bottomCenter,
           colors: [
-            Colors.blueGrey[200],
-            Colors.blueGrey[200],
-            //Color.fromARGB(255, 150, 171, 182),
+            kMainBgGradient1,
+            kMainBgGradient2,
           ],
           stops: [0.0, 1.0],
         )),
