@@ -14,9 +14,16 @@ class FigureContainer extends StatelessWidget {
       decoration: new BoxDecoration(
         color: Colors.white.withOpacity(0.9),
         borderRadius: new BorderRadius.circular(5.0),
+        boxShadow: [
+          BoxShadow(
+            offset: Offset(0, 4),
+            blurRadius: 5,
+            color: Color(0xFF222222).withOpacity(.16))
+        ]
       ),
       height: height,
       child: child,
+
     );
   }
 }
