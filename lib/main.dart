@@ -1,4 +1,5 @@
 
+import 'package:covid19tracker/screens/country_detail.dart';
 import 'package:covid19tracker/screens/loading_screen.dart';
 import 'package:covid19tracker/screens/main_screen.dart';
 import 'package:covid19tracker/screens/news_reader.dart';
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
         LoadingScreen.routeName: (context) => LoadingScreen(),
         MainScreen.routeName: (context) => MainScreen(),
         NewsReader.routeName: (context) => NewsReader(),
+        CountryDetail.routeName: (context) => CountryDetail(),
       },
       initialRoute: LoadingScreen.routeName,
     );

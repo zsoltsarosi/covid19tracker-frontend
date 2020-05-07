@@ -1,5 +1,6 @@
 import 'package:covid19tracker/helper/extension_methods.dart';
 import 'package:covid19tracker/model/country_data.dart';
+import 'package:covid19tracker/screens/country_detail.dart';
 import 'package:covid19tracker/services/country_data_service.dart';
 import 'package:flutter/material.dart';
 
@@ -75,10 +76,18 @@ class _CountriesState extends State<Countries> {
     final dataRows = [
       for (var item in data)
         DataRow(cells: [
-          DataCell(Container(child: Text(item.country))),
-          DataCell(Container(child: Text("${item.confirmed}", style: confirmedStyle))),
-          DataCell(Container(child: Text("${item.recovered}", style: recoveredStyle))),
-          DataCell(Container(child: Text("${item.deaths}", style: diedStyle))),
+          DataCell(Container(child: Text(item.country)), onTap: () {
+            _select(item);
+          }),
+          DataCell(Container(child: Text("${item.confirmed}", style: confirmedStyle)), onTap: () {
+            _select(item);
+          }),
+          DataCell(Container(child: Text("${item.recovered}", style: recoveredStyle)), onTap: () {
+            _select(item);
+          }),
+          DataCell(Container(child: Text("${item.deaths}", style: diedStyle)), onTap: () {
+            _select(item);
+          }),
         ])
     ];
 
@@ -96,6 +105,15 @@ class _CountriesState extends State<Countries> {
           DataColumn(label: Container(child: Text("Deaths")), numeric: true, onSort: _doSort),
         ],
         rows: dataRows,
+      ),
+    );
+  }
+
+  void _select(CountryData country) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CountryDetail(country: country),
       ),
     );
   }
