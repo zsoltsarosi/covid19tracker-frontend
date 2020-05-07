@@ -1,20 +1,21 @@
 import 'package:covid19tracker/helper/extension_methods.dart';
-import 'package:covid19tracker/model/world_aggregated.dart';
+import 'package:covid19tracker/model/single_day_data.dart';
 import 'package:covid19tracker/widgets/figure_container.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class WorldAggregatedCurrent extends StatefulWidget {
-  final WorldAggregated data;
+class SingleDayView extends StatefulWidget {
+  final SingleDayData data;
+  final double increaseRate;
 
-  WorldAggregatedCurrent({Key key, @required this.data}) : super(key: key);
+  SingleDayView({Key key, this.increaseRate, @required this.data}) : super(key: key);
 
   @override
-  _WorldAggregatedCurrentState createState() => _WorldAggregatedCurrentState();
+  _SingleDayViewState createState() => _SingleDayViewState();
 }
 
-class _WorldAggregatedCurrentState extends State<WorldAggregatedCurrent> {
-  WorldAggregated _data;
+class _SingleDayViewState extends State<SingleDayView> {
+  SingleDayData _data;
 
   @override
   void initState() {
@@ -56,7 +57,7 @@ class _WorldAggregatedCurrentState extends State<WorldAggregatedCurrent> {
             child: Row(
               children: <Widget>[
                 Expanded(
-                  child: Text("Change: ${_data.increaseRate.toStringAsFixed(2)} %",
+                  child: Text("Change: ${widget.increaseRate.toStringAsFixed(2)} %",
                       style: textTheme.subtitle.copyWith(fontSize: 10.0, fontWeight: FontWeight.normal)),
                 ),
                 Text(

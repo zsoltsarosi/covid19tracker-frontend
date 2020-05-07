@@ -1,7 +1,7 @@
 import 'package:covid19tracker/base/future_builder_state.dart';
 import 'package:covid19tracker/model/world_aggregated.dart';
 import 'package:covid19tracker/services/world_aggregated_service.dart';
-import 'package:covid19tracker/widgets/world_aggregated_current.dart';
+import 'package:covid19tracker/widgets/single_day_view.dart';
 import 'package:covid19tracker/widgets/world_daily_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -29,7 +29,7 @@ class _WorldState extends FutureBuilderState<World> {
       // color: Colors.blueGrey[200],
       child: Column(
         children: <Widget>[
-          Expanded(child: WorldAggregatedCurrent(data: data.last), flex: 1),
+          Expanded(child: SingleDayView(data: data.last, increaseRate: data.last.increaseRate), flex: 1),
           Expanded(child: WorldDailyChart(data: data, colorScheme: Theme.of(context).colorScheme), flex: 3),
         ],
       ),
