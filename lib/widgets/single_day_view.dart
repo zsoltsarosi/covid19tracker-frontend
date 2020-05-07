@@ -23,6 +23,17 @@ class _SingleDayViewState extends State<SingleDayView> {
     _data = widget.data;
   }
 
+  Widget _buildIncreaseRate(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+
+    if (widget.increaseRate == null) {
+      return Container(width: 0.0, height: 0.0);
+    }
+
+    return Text("Change: ${widget.increaseRate.toStringAsFixed(2)} %",
+        style: textTheme.subtitle.copyWith(fontSize: 10.0, fontWeight: FontWeight.normal));
+  }
+
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
@@ -57,11 +68,9 @@ class _SingleDayViewState extends State<SingleDayView> {
             child: Row(
               children: <Widget>[
                 Expanded(
-                  child: Text("Change: ${widget.increaseRate.toStringAsFixed(2)} %",
-                      style: textTheme.subtitle.copyWith(fontSize: 10.0, fontWeight: FontWeight.normal)),
+                  child: _buildIncreaseRate(context),
                 ),
-                Text(
-                    "Date: ${DateFormat.yMd().format(_data.date)}",
+                Text("Date: ${DateFormat.yMd().format(_data.date)}",
                     style: textTheme.subtitle.copyWith(fontSize: 10.0, fontWeight: FontWeight.normal)),
               ],
             ),
