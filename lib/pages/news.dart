@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:covid19tracker/base/future_builder_state.dart';
 import 'package:covid19tracker/model/news.dart' as model;
 import 'package:covid19tracker/screens/news_reader.dart';
 import 'package:covid19tracker/services/news_service.dart';
@@ -12,7 +13,7 @@ class News extends StatefulWidget {
   _NewsState createState() => _NewsState();
 }
 
-class _NewsState extends State<News> {
+class _NewsState extends FutureBuilderState<News> {
   final NewsService service = NewsService();
   Future<List<model.News>> getDataFuture;
 
@@ -24,31 +25,6 @@ class _NewsState extends State<News> {
   void initState() {
     super.initState();
     this.getData();
-  }
-
-  Widget _buildLoader() {
-    return Center(
-        child: SizedBox(
-      child: CircularProgressIndicator(),
-      width: 20,
-      height: 20,
-    ));
-  }
-
-  Widget _buildError(Object error) {
-    return Column(
-      children: <Widget>[
-        Text('Error loading news'),
-        IconButton(
-            icon: Icon(Icons.refresh, color: Colors.black, size: 20),
-            onPressed: () {
-              this.getData();
-              setState(() {});
-            }),
-      ],
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-    );
   }
 
   String _getNewsDateString(model.News news) {
@@ -144,26 +120,22 @@ class _NewsState extends State<News> {
     );
   }
 
-  Widget _buildNoData() {
-    return Container(width: 0.0, height: 0.0);
-  }
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<model.News>>(
       future: this.getDataFuture,
       builder: (BuildContext context, AsyncSnapshot<List<model.News>> snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
-          return _buildLoader();
+          return super.buildLoader();
         }
         if (snapshot.hasError) {
-          return _buildError(snapshot.error);
+          return super.buildError(snapshot.error);
         }
         if (snapshot.hasData) {
           return _buildDataView(context, snapshot.data);
         }
 
-        return _buildNoData();
+        return super.buildNoData();
       },
     );
   }
