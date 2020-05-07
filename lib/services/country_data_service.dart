@@ -9,6 +9,7 @@ class CountryDataService {
   static final CountryDataService _singleton = CountryDataService._internal();
 
   String _url = "http://10.0.2.2:54820/api/countrydata";
+  String _urlDetail = "http://10.0.2.2:54820/api/countrydata/##country##";
 
   Future<String> get _localPath async {
     final directory = await getApplicationDocumentsDirectory();
@@ -51,6 +52,20 @@ class CountryDataService {
         return data;
       }
 
+      throw Exception('Failed to load data');
+    }
+  }
+
+  Future<List<CountryData>> getDetail(String country) async {
+    List<CountryData> data = <CountryData>[];
+    final response = await http.get(_urlDetail.replaceFirst("##country##", country));
+
+    if (response.statusCode == 200) {
+      data = _parseData(response.body);
+      print('Country detail loaded. Data points: ${data.length}.');
+      return data;
+    } else {
+      print('Error loading data: ${response.statusCode}.');
       throw Exception('Failed to load data');
     }
   }
