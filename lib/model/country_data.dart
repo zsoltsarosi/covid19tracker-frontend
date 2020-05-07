@@ -1,12 +1,10 @@
+import 'package:covid19tracker/model/single_day_data.dart';
 
-class CountryData {
-  DateTime date;
+class CountryData extends SingleDayData {
   String country;
-  int confirmed;
-  int recovered;
-  int deaths;
 
-  CountryData({this.date, this.country, this.confirmed, this.recovered, this.deaths});
+  CountryData({DateTime date, int confirmed, int recovered, int deaths, this.country})
+      : super(date: date, confirmed: confirmed, recovered: recovered, deaths: deaths);
 
   factory CountryData.fromJson(Map<String, dynamic> json) {
     return CountryData(

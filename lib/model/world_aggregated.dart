@@ -1,12 +1,11 @@
 
-class WorldAggregated {
-  DateTime date;
-  int confirmed;
-  int recovered;
-  int deaths;
+import 'package:covid19tracker/model/single_day_data.dart';
+
+class WorldAggregated extends SingleDayData {
   double increaseRate;
 
-  WorldAggregated({this.date, this.confirmed, this.recovered, this.deaths, this.increaseRate});
+  WorldAggregated({DateTime date, int confirmed, int recovered, int deaths, this.increaseRate})
+    : super(date: date, confirmed: confirmed, recovered: recovered, deaths: deaths);
 
   factory WorldAggregated.fromJson(Map<String, dynamic> json) {
     return WorldAggregated(
