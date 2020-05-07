@@ -2,6 +2,7 @@ import 'package:covid19tracker/base/future_builder_state.dart';
 import 'package:covid19tracker/constants.dart';
 import 'package:covid19tracker/model/country_data.dart';
 import 'package:covid19tracker/services/country_data_service.dart';
+import 'package:covid19tracker/widgets/daily_chart.dart';
 import 'package:covid19tracker/widgets/single_day_view.dart';
 import 'package:flutter/material.dart';
 import 'package:covid19tracker/model/country_data.dart' as model;
@@ -55,7 +56,7 @@ class _CountryDetailState extends FutureBuilderState<CountryDetail> {
         body: Column(
           children: <Widget>[
             Expanded(child: SingleDayView(data: data.last), flex: 1),
-            Expanded(child: super.buildNoData(), flex: 4),
+            Expanded(child: DailyChart(data: data, colorScheme: Theme.of(context).colorScheme), flex: 4),
           ],
         ),
       )
