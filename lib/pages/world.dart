@@ -2,7 +2,7 @@ import 'package:covid19tracker/base/future_builder_state.dart';
 import 'package:covid19tracker/model/world_aggregated.dart';
 import 'package:covid19tracker/services/world_aggregated_service.dart';
 import 'package:covid19tracker/widgets/single_day_view.dart';
-import 'package:covid19tracker/widgets/world_daily_chart.dart';
+import 'package:covid19tracker/widgets/daily_chart.dart';
 import 'package:flutter/material.dart';
 
 class World extends StatefulWidget {
@@ -30,7 +30,7 @@ class _WorldState extends FutureBuilderState<World> {
       child: Column(
         children: <Widget>[
           Expanded(child: SingleDayView(data: data.last, increaseRate: data.last.increaseRate), flex: 1),
-          Expanded(child: WorldDailyChart(data: data, colorScheme: Theme.of(context).colorScheme), flex: 3),
+          Expanded(child: DailyChart(data: data, colorScheme: Theme.of(context).colorScheme), flex: 3),
         ],
       ),
     );
