@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:covid19tracker/model/country_data.dart' as model;
 
 class CountryDetail extends StatefulWidget {
-  static const routeName = '/country';
   final model.CountryData country;
 
   CountryDetail({Key key, @required this.country}) : super(key: key);
