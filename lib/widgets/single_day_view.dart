@@ -31,7 +31,7 @@ class _SingleDayViewState extends State<SingleDayView> {
     }
 
     return Text("Change: ${widget.increaseRate.toStringAsFixed(2)} %",
-        style: textTheme.subtitle.copyWith(fontSize: 10.0, fontWeight: FontWeight.normal));
+        style: textTheme.subtitle2.copyWith(fontSize: 10.0, fontWeight: FontWeight.normal));
   }
 
   @override
@@ -71,7 +71,7 @@ class _SingleDayViewState extends State<SingleDayView> {
                   child: _buildIncreaseRate(context),
                 ),
                 Text("Date: ${DateFormat.yMd().format(_data.date)}",
-                    style: textTheme.subtitle.copyWith(fontSize: 10.0, fontWeight: FontWeight.normal)),
+                    style: textTheme.subtitle2.copyWith(fontSize: 10.0, fontWeight: FontWeight.normal)),
               ],
             ),
           ),
@@ -93,7 +93,7 @@ class MainData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
-    var valueStyle = textTheme.subtitle.copyWith(color: color);
+    var valueStyle = textTheme.subtitle2.copyWith(color: color);
     return new Container(
       padding: const EdgeInsets.all(5),
       child: Column(

@@ -25,7 +25,6 @@ class _NewsReaderState extends State<NewsReader> {
     print('loading: $url');
 
     return Scaffold(
-      backgroundColor: Colors.black,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(40.0),
         child: AppBar(

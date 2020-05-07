@@ -56,9 +56,9 @@ class _NewsState extends FutureBuilderState<News> {
   Widget _buildDataView(BuildContext context, List<model.News> news) {
     TextTheme textTheme = Theme.of(context).textTheme;
 
-    var titleStyle = textTheme.title.copyWith(fontSize: 13.0, fontWeight: FontWeight.normal);
+    var titleStyle = textTheme.headline6.copyWith(fontSize: 13.0, fontWeight: FontWeight.normal);
 
-    var footerStyle = textTheme.subtitle.copyWith(fontSize: 10.0, fontWeight: FontWeight.w300);
+    var footerStyle = textTheme.subtitle2.copyWith(fontSize: 10.0, fontWeight: FontWeight.w300);
 
     return ListView.separated(
       itemCount: news.length,

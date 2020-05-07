@@ -97,7 +97,7 @@ class CustomTabBar extends AnimatedWidget implements PreferredSizeWidget {
         children: new List.generate(pageNames.length, (int index) {
           return new InkWell(
               child: new Text(pageNames[index],
-                  style: textTheme.subhead.copyWith(
+                  style: textTheme.subtitle1.copyWith(
                     color: Colors.white.withOpacity(
                       index == pageController.page ? 1.0 : 0.2,
                     ),
