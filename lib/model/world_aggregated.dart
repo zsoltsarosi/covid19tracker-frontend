@@ -10,11 +10,11 @@ class WorldAggregated {
 
   factory WorldAggregated.fromJson(Map<String, dynamic> json) {
     return WorldAggregated(
-      date: DateTime.parse(json['date']),
-      confirmed: json['confirmed'] as int,
-      recovered: json['recovered'] as int,
-      deaths: json['deaths'] as int,
-      increaseRate: json['increaseRate'] as double,
+      date: DateTime.parse(json['t']),
+      confirmed: json['c'] as int,
+      recovered: json['r'] as int,
+      deaths: json['d'] as int,
+      increaseRate: json['i'] as double,
     );
   }
 }
