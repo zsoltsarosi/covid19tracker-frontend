@@ -10,11 +10,11 @@ class CountryData {
 
   factory CountryData.fromJson(Map<String, dynamic> json) {
     return CountryData(
-      date: DateTime.parse(json['date']),
-      country: json['country'] as String,
-      confirmed: json['confirmed'] as int,
-      recovered: json['recovered'] as int,
-      deaths: json['deaths'] as int,
+      date: DateTime.parse(json['t']),
+      country: json['n'] as String,
+      confirmed: json['c'] as int,
+      recovered: json['r'] as int,
+      deaths: json['d'] as int,
     );
   }
 }
