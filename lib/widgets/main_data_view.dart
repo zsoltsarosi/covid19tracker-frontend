@@ -4,17 +4,17 @@ import 'package:covid19tracker/widgets/figure_container.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class SingleDayView extends StatefulWidget {
+class MainDataView extends StatefulWidget {
   final SingleDayData data;
   final double increaseRate;
 
-  SingleDayView({Key key, this.increaseRate, @required this.data}) : super(key: key);
+  MainDataView({Key key, this.increaseRate, @required this.data}) : super(key: key);
 
   @override
-  _SingleDayViewState createState() => _SingleDayViewState();
+  _MainDataViewState createState() => _MainDataViewState();
 }
 
-class _SingleDayViewState extends State<SingleDayView> {
+class _MainDataViewState extends State<MainDataView> {
   SingleDayData _data;
 
   @override
@@ -40,7 +40,7 @@ class _SingleDayViewState extends State<SingleDayView> {
 
     return FigureContainer(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        // crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Expanded(
             child: Row(
