@@ -23,7 +23,7 @@ class _MainScreenState extends State<MainScreen> {
 
     final pages = <TabPage>{
       TabPage(name: 'World', icon: Icons.public, widget: World()),
-      TabPage(name: 'Countries', icon: Icons.details, widget: Countries()),
+      TabPage(name: 'Countries', icon: Icons.location_on, widget: Countries()),
       TabPage(name: 'News', icon: Icons.rss_feed, widget: News()),
     };
 
@@ -45,12 +45,7 @@ class _MainScreenState extends State<MainScreen> {
         appBar: AppBar(
           backgroundColor: const Color(0x00000000),
           elevation: 0.0,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text("covid-19 Tracker"),
-            ],
-          ),
+          title: Align(child: Text("COVID-19 Tracker"), alignment: Alignment.center),
           bottom: new CustomTabBar(
             pageController: _pageController,
             pages: pages.toList(),
