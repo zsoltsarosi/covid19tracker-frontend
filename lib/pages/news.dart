@@ -57,13 +57,9 @@ class _NewsState extends FutureBuilderState<News> {
   Widget _buildDataView(BuildContext context, List<model.News> news) {
     TextTheme textTheme = Theme.of(context).textTheme;
 
-    var titleStyle = textTheme.headline6.copyWith(fontSize: 13.0, fontWeight: FontWeight.normal);
-
-    var footerStyle = textTheme.subtitle2.copyWith(fontSize: 10.0, fontWeight: FontWeight.w300);
-
     return ListView.separated(
       itemCount: news.length,
-      separatorBuilder: (BuildContext context, int index) => Divider(height: 6.0),
+      separatorBuilder: (BuildContext context, int index) => Divider(height: 8.0),
       itemBuilder: (context, index) {
         var margin = EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0);
         // add extra margin at the bottom
@@ -74,16 +70,16 @@ class _NewsState extends FutureBuilderState<News> {
             Navigator.pushNamed(context, NewsReader.routeName, arguments: news[index]);
           },
           child: Container(
-            height: 60.0,
-            decoration: new BoxDecoration(
+            height: 100.0,
+            decoration: BoxDecoration(
               color: kFigureBackground,
-              borderRadius: new BorderRadius.circular(3.0),
+              borderRadius: BorderRadius.circular(3.0),
             ),
             margin: margin,
             child: Row(
               children: <Widget>[
                 Expanded(
-                    flex: 4,
+                    flex: 2,
                     child: Container(
                       padding: EdgeInsets.symmetric(vertical: 2, horizontal: 4),
                       child: Column(
@@ -91,15 +87,15 @@ class _NewsState extends FutureBuilderState<News> {
                           Expanded(
                             child: Container(
                               // color: Colors.blue,
-                              child: Text(news[index].title, style: titleStyle),
+                              child: Text(news[index].title, style: textTheme.bodyText1),
                             ),
                           ),
                           Container(
                             // color: Colors.yellow,
                             child: Row(
                               children: <Widget>[
-                                Expanded(child: Text(_getNewsDateString(news[index]), style: footerStyle)),
-                                Text(news[index].sourceName, style: footerStyle)
+                                Expanded(child: Text(_getNewsDateString(news[index]), style: textTheme.caption)),
+                                Text(news[index].sourceName, style: textTheme.caption)
                               ],
                             ),
                           )
