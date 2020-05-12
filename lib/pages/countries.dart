@@ -3,7 +3,9 @@ import 'package:covid19tracker/helper/extension_methods.dart';
 import 'package:covid19tracker/model/country_data.dart';
 import 'package:covid19tracker/screens/country_detail.dart';
 import 'package:covid19tracker/services/country_data_service.dart';
+import 'package:covid19tracker/widgets/figure_container.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class Countries extends StatefulWidget {
   @override
@@ -16,6 +18,8 @@ class _CountriesState extends FutureBuilderState<Countries> {
 
   var _sortIndex = 0;
   var _sortAsc = true;
+
+  final NumberFormat formatter = NumberFormat();
 
   void getData() {
     this.getDataFuture = this.service.getData();
@@ -45,42 +49,47 @@ class _CountriesState extends FutureBuilderState<Countries> {
     if (!_sortAsc) data = data.reversed.toList();
 
     TextTheme textTheme = Theme.of(context).textTheme;
-    var confirmedStyle = textTheme.caption.copyWith(color: Theme.of(context).colorScheme.confirmed);
-    var recoveredStyle = textTheme.caption.copyWith(color: Theme.of(context).colorScheme.recovered);
-    var diedStyle = textTheme.caption.copyWith(color: Theme.of(context).colorScheme.died);
+    
+    final labelTextStyle = textTheme.bodyText2;
+    final valueTextStyle = textTheme.subtitle1;
+
+    var confirmedStyle = valueTextStyle.copyWith(color: Theme.of(context).colorScheme.confirmed);
+    var recoveredStyle = valueTextStyle.copyWith(color: Theme.of(context).colorScheme.recovered);
+    var diedStyle = valueTextStyle.copyWith(color: Theme.of(context).colorScheme.died);
 
     final dataRows = [
       for (var item in data)
         DataRow(cells: [
-          DataCell(Container(child: Text(item.country)), onTap: () {
+          DataCell(Container(child: Text(item.country, style: labelTextStyle)), onTap: () {
             _select(item);
           }),
-          DataCell(Container(child: Text("${item.confirmed}", style: confirmedStyle)), onTap: () {
+          DataCell(Container(child: Text(formatter.format(item.confirmed), style: confirmedStyle)), onTap: () {
             _select(item);
           }),
-          DataCell(Container(child: Text("${item.recovered}", style: recoveredStyle)), onTap: () {
+          DataCell(Container(child: Text(formatter.format(item.recovered), style: recoveredStyle)), onTap: () {
             _select(item);
           }),
-          DataCell(Container(child: Text("${item.deaths}", style: diedStyle)), onTap: () {
+          DataCell(Container(child: Text(formatter.format(item.deaths), style: diedStyle)), onTap: () {
             _select(item);
           }),
         ])
     ];
 
     return SingleChildScrollView(
-      child: DataTable(
-        sortColumnIndex: _sortIndex,
-        sortAscending: _sortAsc,
-        columnSpacing: 0,
-        headingRowHeight: 36,
-        dataRowHeight: 36,
-        columns: [
-          DataColumn(label: Container(child: Text("Country")), onSort: _doSort),
-          DataColumn(label: Container(child: Text("Confirmed")), numeric: true, onSort: _doSort),
-          DataColumn(label: Container(child: Text("Recovered")), numeric: true, onSort: _doSort),
-          DataColumn(label: Container(child: Text("Deaths")), numeric: true, onSort: _doSort),
-        ],
-        rows: dataRows,
+      child: FigureContainer(
+        child: DataTable(
+          sortColumnIndex: _sortIndex,
+          sortAscending: _sortAsc,
+          columnSpacing: 0,
+          headingRowHeight: 40,
+          columns: [
+            DataColumn(label: Container(child: Text("Country")), onSort: _doSort),
+            DataColumn(label: Container(child: Text("Confirmed")), numeric: true, onSort: _doSort),
+            DataColumn(label: Container(child: Text("Recovered")), numeric: true, onSort: _doSort),
+            DataColumn(label: Container(child: Text("Deaths")), numeric: true, onSort: _doSort),
+          ],
+          rows: dataRows,
+        ),
       ),
     );
   }
