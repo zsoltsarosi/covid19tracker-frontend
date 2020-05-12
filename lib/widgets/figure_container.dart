@@ -13,7 +13,7 @@ class FigureContainer extends StatelessWidget {
       margin: const EdgeInsets.fromLTRB(15, 5, 15, 20),
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       decoration: new BoxDecoration(
-        color: Colors.white.withOpacity(0.9),
+        color: kFigureBackground,
         borderRadius: new BorderRadius.circular(5.0),
         boxShadow: [
           BoxShadow(

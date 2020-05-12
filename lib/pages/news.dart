@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:covid19tracker/base/future_builder_state.dart';
+import 'package:covid19tracker/constants.dart';
 import 'package:covid19tracker/model/news.dart' as model;
 import 'package:covid19tracker/screens/news_reader.dart';
 import 'package:covid19tracker/services/news_service.dart';
@@ -64,6 +65,10 @@ class _NewsState extends FutureBuilderState<News> {
       itemCount: news.length,
       separatorBuilder: (BuildContext context, int index) => Divider(height: 6.0),
       itemBuilder: (context, index) {
+        var margin = EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0);
+        // add extra margin at the bottom
+        if (index == news.length - 1) margin = EdgeInsets.fromLTRB(10, 0, 10, 10);
+
         return InkWell(
           onTap: () {
             Navigator.pushNamed(context, NewsReader.routeName, arguments: news[index]);
@@ -71,10 +76,10 @@ class _NewsState extends FutureBuilderState<News> {
           child: Container(
             height: 60.0,
             decoration: new BoxDecoration(
-              color: Colors.grey.shade800.withOpacity(0.2),
+              color: kFigureBackground,
               borderRadius: new BorderRadius.circular(3.0),
             ),
-            margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
+            margin: margin,
             child: Row(
               children: <Widget>[
                 Expanded(
