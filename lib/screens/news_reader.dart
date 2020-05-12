@@ -28,6 +28,7 @@ class _NewsReaderState extends State<NewsReader> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(40.0),
         child: AppBar(
+          title: Align(child: Text(news.title), alignment: Alignment.center),
           actions: <Widget>[],
         ),
       ),
