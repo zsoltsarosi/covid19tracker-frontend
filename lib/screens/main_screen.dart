@@ -19,8 +19,6 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // TextTheme textTheme = Theme.of(context).textTheme;
-
     final pages = <TabPage>{
       TabPage(name: 'World', icon: Icons.public, widget: World()),
       TabPage(name: 'Countries', icon: Icons.location_on, widget: Countries()),
@@ -52,13 +50,10 @@ class _MainScreenState extends State<MainScreen> {
           ),
           actions: <Widget>[
             Padding(
-                padding: EdgeInsets.only(right: 20.0),
+                padding: EdgeInsets.only(right: 20),
                 child: GestureDetector(
                   onTap: () {},
-                  child: Icon(
-                    Icons.person,
-                    size: 26.0,
-                  ),
+                  child: Icon(Icons.info, size: 20),
                 )),
           ],
         ),
@@ -79,14 +74,14 @@ class CustomTabBar extends AnimatedWidget implements PreferredSizeWidget {
   CustomTabBar({this.pageController, this.pages}) : super(listenable: pageController);
 
   @override
-  final Size preferredSize = new Size(0.0, 40.0);
+  final Size preferredSize = new Size(0.0, 60.0);
 
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
 
     return Container(
-      height: 40.0,
+      height: 60.0,
       margin: const EdgeInsets.all(10.0),
       decoration: BoxDecoration(
         color: Colors.grey.shade800.withOpacity(0.5),
@@ -99,7 +94,8 @@ class CustomTabBar extends AnimatedWidget implements PreferredSizeWidget {
               ? Alignment.centerLeft
               : index == pages.length - 1 ? Alignment.centerRight : Alignment.center;
 
-          int currentPage = pageController.page == null ? pageController.initialPage : pageController.page.round();
+          int currentPage =
+              pageController.page == null ? pageController.initialPage : pageController.page.round();
           final itemColor = Colors.white.withOpacity(index == currentPage ? 1.0 : 0.2);
           return Expanded(
             flex: 1,
@@ -111,8 +107,8 @@ class CustomTabBar extends AnimatedWidget implements PreferredSizeWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        Icon(pages[index].icon, size: 20, color: itemColor),
-                        Text(pages[index].name, style: textTheme.overline.copyWith(color: itemColor)),
+                        Icon(pages[index].icon, size: 30, color: itemColor),
+                        Text(pages[index].name, style: textTheme.bodyText1.copyWith(color: itemColor)),
                       ],
                     ),
                   ),
