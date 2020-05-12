@@ -11,6 +11,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'COVID-19 Tracker',
+      debugShowCheckedModeBanner: false,
       theme: new ThemeData(
         brightness: Brightness.light,
         primaryColorBrightness: Brightness.dark,
