@@ -1,3 +1,5 @@
+import 'package:covid19tracker/constants.dart';
+import 'package:covid19tracker/services/world_aggregated_service.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -18,18 +20,20 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
 
   void onStart() async {
-    // TODO temp to simulate splash screen
     await Future.delayed(new Duration(seconds: 1));
+    // should load the initial data here
     Navigator.pushReplacementNamed(context, '/home');
   }
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+    
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: kMainBgGradient1,
       body: Center(
         child: Shimmer.fromColors(
-            child: Text("Loading data ..."), baseColor: Colors.grey[500], highlightColor: Colors.white),
+            child: Text("Loading data ...", style: textTheme.headline4), baseColor: Colors.white30, highlightColor: Colors.white),
       ),
     );
   }
