@@ -40,7 +40,6 @@ class _MainDataViewState extends State<MainDataView> {
 
     return FigureContainer(
       child: Column(
-        // crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Expanded(
             child: Row(
@@ -82,27 +81,48 @@ class _MainDataViewState extends State<MainDataView> {
 }
 
 class MainData extends StatelessWidget {
-  MainData({this.title, this.value, this.color});
-
   final NumberFormat formatter = NumberFormat();
 
   final String title;
   final int value;
   final Color color;
 
+  MainData({this.title, this.value, this.color});
+
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
-    var valueStyle = textTheme.subtitle2.copyWith(color: color);
-    return new Container(
-      padding: const EdgeInsets.all(5),
+    var valueStyle = textTheme.headline6.copyWith(color: color);
+    return Container(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text(this.title, style: textTheme.caption),
-          SizedBox(height: 5),
+          Circle(color: this.color),
           Text(formatter.format(this.value), style: valueStyle),
+          Text(this.title, style: textTheme.caption)          
         ],
+      ),
+    );
+  }
+}
+
+class Circle extends StatelessWidget {
+  final Color color;
+  Circle({this.color});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(3),
+      height: 15,
+      width: 15,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: color.withOpacity(.26),
+      ),
+      child: Container(
+        decoration: BoxDecoration(
+            shape: BoxShape.circle, color: Colors.transparent, border: Border.all(color: color, width: 2)),
       ),
     );
   }
