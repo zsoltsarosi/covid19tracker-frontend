@@ -32,7 +32,6 @@ class _DailyChartState extends State<DailyChart> {
   @override
   Widget build(BuildContext context) {
     return FigureContainer(
-        height: 300,
         child: charts.LineChart(
           _seriesList,
           animate: false,
