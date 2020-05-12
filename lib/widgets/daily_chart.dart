@@ -2,7 +2,6 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:covid19tracker/helper/extension_methods.dart';
 import 'package:covid19tracker/model/single_day_data.dart';
 import 'package:covid19tracker/widgets/figure_container.dart';
-/// Bar chart example
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -36,9 +35,7 @@ class _DailyChartState extends State<DailyChart> {
           _seriesList,
           animate: false,
           behaviors: [
-            charts.SeriesLegend(
-              entryTextStyle: charts.TextStyleSpec(fontSize: 10),
-            )
+            charts.SeriesLegend()
           ],
           domainAxis: charts.NumericAxisSpec(
             // Make sure that we draw the domain axis line.

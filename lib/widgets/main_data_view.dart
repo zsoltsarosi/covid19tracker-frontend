@@ -31,7 +31,7 @@ class _MainDataViewState extends State<MainDataView> {
     }
 
     return Text("Change: ${widget.increaseRate.toStringAsFixed(2)} %",
-        style: textTheme.subtitle2.copyWith(fontSize: 10.0, fontWeight: FontWeight.normal));
+        style: textTheme.caption);
   }
 
   @override
@@ -69,8 +69,7 @@ class _MainDataViewState extends State<MainDataView> {
                 Expanded(
                   child: _buildIncreaseRate(context),
                 ),
-                Text("Date: ${DateFormat.yMd().format(_data.date)}",
-                    style: textTheme.subtitle2.copyWith(fontSize: 10.0, fontWeight: FontWeight.normal)),
+                Text("Date: ${DateFormat.yMd().format(_data.date)}", style: textTheme.caption),
               ],
             ),
           ),
