@@ -31,6 +31,20 @@ class _CountriesState extends FutureBuilderState<Countries> {
     this.getData();
   }
 
+  String _countryFlag(String countryCode) {
+    if (countryCode == null || countryCode.isEmpty) return "";
+
+    int flagOffset = 0x1F1E6;
+    int asciiOffset = 0x41;
+
+    int firstChar = countryCode.codeUnitAt(0) - asciiOffset + flagOffset;
+    int secondChar = countryCode.codeUnitAt(1) - asciiOffset + flagOffset;
+
+    String emoji =
+        String.fromCharCode(firstChar) + String.fromCharCode(secondChar);
+    return emoji;
+  }
+
   Widget _buildDataView(List<CountryData> data) {
     data.sort((a, b) {
       switch (_sortIndex) {
@@ -60,7 +74,7 @@ class _CountriesState extends FutureBuilderState<Countries> {
     final dataRows = [
       for (var item in data)
         DataRow(cells: [
-          DataCell(Container(child: Text(item.country, style: labelTextStyle)), onTap: () {
+          DataCell(Container(child: Text("${_countryFlag(item.countryIso2)} ${item.country}", style: labelTextStyle)), onTap: () {
             _select(item);
           }),
           DataCell(Container(child: Text(formatter.format(item.confirmed), style: confirmedStyle)), onTap: () {
