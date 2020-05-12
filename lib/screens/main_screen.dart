@@ -45,10 +45,15 @@ class _MainScreenState extends State<MainScreen> {
         appBar: AppBar(
           backgroundColor: const Color(0x00000000),
           elevation: 0.0,
-          title: const Text("covid-19 tracker"),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text("covid-19 Tracker"),
+            ],
+          ),
           bottom: new CustomTabBar(
             pageController: _pageController,
-            pageNames: [for (var page in pages) page.name],
+            pages: pages.toList(),
           ),
           actions: <Widget>[
             Padding(
@@ -74,41 +79,57 @@ class _MainScreenState extends State<MainScreen> {
 
 class CustomTabBar extends AnimatedWidget implements PreferredSizeWidget {
   final PageController pageController;
-  final List<String> pageNames;
+  final List<TabPage> pages;
 
-  CustomTabBar({this.pageController, this.pageNames}) : super(listenable: pageController);
+  CustomTabBar({this.pageController, this.pages}) : super(listenable: pageController);
 
   @override
-  final Size preferredSize = new Size(0.0, 20.0);
+  final Size preferredSize = new Size(0.0, 40.0);
 
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
-    return new Container(
-      height: 20.0,
+
+    return Container(
+      height: 40.0,
       margin: const EdgeInsets.all(10.0),
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-      decoration: new BoxDecoration(
+      decoration: BoxDecoration(
         color: Colors.grey.shade800.withOpacity(0.5),
-        borderRadius: new BorderRadius.circular(20.0),
+        borderRadius: BorderRadius.circular(10.0),
       ),
-      child: new Row(
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: new List.generate(pageNames.length, (int index) {
-          return new InkWell(
-              child: new Text(pageNames[index],
-                  style: textTheme.subtitle1.copyWith(
-                    color: Colors.white.withOpacity(
-                      index == pageController.page ? 1.0 : 0.2,
+        children: List.generate(pages.length, (int index) {
+          final alignment = index == 0
+              ? Alignment.centerLeft
+              : index == pages.length - 1 ? Alignment.centerRight : Alignment.center;
+
+          int currentPage = pageController.page == null ? pageController.initialPage : pageController.page.round();
+          final itemColor = Colors.white.withOpacity(index == currentPage ? 1.0 : 0.2);
+          return Expanded(
+            flex: 1,
+            child: InkWell(
+                child: Align(
+                  alignment: alignment,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Icon(pages[index].icon, size: 20, color: itemColor),
+                        Text(pages[index].name, style: textTheme.overline.copyWith(color: itemColor)),
+                      ],
                     ),
-                  )),
-              onTap: () {
-                pageController.animateToPage(
-                  index,
-                  curve: Curves.easeOut,
-                  duration: const Duration(milliseconds: 300),
-                );
-              });
+                  ),
+                ),
+                onTap: () {
+                  pageController.animateToPage(
+                    index,
+                    curve: Curves.easeOut,
+                    duration: const Duration(milliseconds: 300),
+                  );
+                }),
+          );
         }).toList(),
       ),
     );
