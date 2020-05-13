@@ -16,8 +16,11 @@ class _CountriesState extends FutureBuilderState<Countries> {
   final CountryDataService service = CountryDataService();
   Future<List<CountryData>> getDataFuture;
 
-  var _sortIndex = 0;
-  var _sortAsc = true;
+  ScrollController _controller;
+  var _onTop = true;
+
+  var _sortIndex = 1;
+  var _sortAsc = false;
 
   final NumberFormat formatter = NumberFormat();
 
@@ -28,6 +31,28 @@ class _CountriesState extends FutureBuilderState<Countries> {
   @override
   void initState() {
     super.initState();
+
+    _controller = ScrollController()
+      ..addListener(() {
+        if (_controller.offset >= _controller.position.maxScrollExtent && !_controller.position.outOfRange) {
+          // bottom
+          setState(() {
+            _onTop = false;
+          });
+        } else if (_controller.offset <= _controller.position.minScrollExtent &&
+            !_controller.position.outOfRange) {
+          // top
+          setState(() {
+            _onTop = true;
+          });
+        } else {
+          // in between
+          setState(() {
+            _onTop = false;
+          });
+        }
+      });
+
     this.getData();
   }
 
@@ -40,8 +65,7 @@ class _CountriesState extends FutureBuilderState<Countries> {
     int firstChar = countryCode.codeUnitAt(0) - asciiOffset + flagOffset;
     int secondChar = countryCode.codeUnitAt(1) - asciiOffset + flagOffset;
 
-    String emoji =
-        String.fromCharCode(firstChar) + String.fromCharCode(secondChar);
+    String emoji = String.fromCharCode(firstChar) + String.fromCharCode(secondChar);
     return emoji;
   }
 
@@ -63,7 +87,7 @@ class _CountriesState extends FutureBuilderState<Countries> {
     if (!_sortAsc) data = data.reversed.toList();
 
     TextTheme textTheme = Theme.of(context).textTheme;
-    
+
     final labelTextStyle = textTheme.bodyText2;
     final valueTextStyle = textTheme.subtitle1;
 
@@ -74,13 +98,18 @@ class _CountriesState extends FutureBuilderState<Countries> {
     final dataRows = [
       for (var item in data)
         DataRow(cells: [
-          DataCell(Container(child: Text("${_countryFlag(item.countryIso2)} ${item.country}", style: labelTextStyle)), onTap: () {
+          DataCell(
+              Container(
+                  child: Text("${_countryFlag(item.countryIso2)} ${item.country}", style: labelTextStyle)),
+              onTap: () {
             _select(item);
           }),
-          DataCell(Container(child: Text(formatter.format(item.confirmed), style: confirmedStyle)), onTap: () {
+          DataCell(Container(child: Text(formatter.format(item.confirmed), style: confirmedStyle)),
+              onTap: () {
             _select(item);
           }),
-          DataCell(Container(child: Text(formatter.format(item.recovered), style: recoveredStyle)), onTap: () {
+          DataCell(Container(child: Text(formatter.format(item.recovered), style: recoveredStyle)),
+              onTap: () {
             _select(item);
           }),
           DataCell(Container(child: Text(formatter.format(item.deaths), style: diedStyle)), onTap: () {
@@ -89,23 +118,49 @@ class _CountriesState extends FutureBuilderState<Countries> {
         ])
     ];
 
-    return SingleChildScrollView(
-      child: FigureContainer(
-        child: DataTable(
-          sortColumnIndex: _sortIndex,
-          sortAscending: _sortAsc,
-          columnSpacing: 0,
-          headingRowHeight: 40,
-          columns: [
-            DataColumn(label: Container(child: Text("Country")), onSort: _doSort),
-            DataColumn(label: Container(child: Text("Confirmed")), numeric: true, onSort: _doSort),
-            DataColumn(label: Container(child: Text("Recovered")), numeric: true, onSort: _doSort),
-            DataColumn(label: Container(child: Text("Deaths")), numeric: true, onSort: _doSort),
-          ],
-          rows: dataRows,
+    return Stack(
+      children: <Widget>[
+        SingleChildScrollView(
+          controller: _controller,
+          child: FigureContainer(
+            child: DataTable(
+              sortColumnIndex: _sortIndex,
+              sortAscending: _sortAsc,
+              columnSpacing: 0,
+              headingRowHeight: 40,
+              columns: [
+                DataColumn(label: Container(child: Text("Country")), onSort: _doSort),
+                DataColumn(label: Container(child: Text("Confirmed")), numeric: true, onSort: _doSort),
+                DataColumn(label: Container(child: Text("Recovered")), numeric: true, onSort: _doSort),
+                DataColumn(label: Container(child: Text("Deaths")), numeric: true, onSort: _doSort),
+              ],
+              rows: dataRows,
+            ),
+          ),
         ),
-      ),
+        _buildBackToTop(),
+      ],
     );
+  }
+
+  Widget _buildBackToTop() {
+    if (_onTop) {
+      return Container(width: 0.0, height: 0.0);
+    } else {
+      return Align(
+        alignment: Alignment.bottomRight,
+        child: Container(
+          margin: EdgeInsets.fromLTRB(0, 0, 30, 30),
+          child: FloatingActionButton(
+            elevation: 10,
+            onPressed: () {
+              _controller.animateTo(0, curve: Curves.linear, duration: Duration(milliseconds: 100));
+            },
+            child: Icon(Icons.arrow_upward),
+          ),
+        ),
+      );
+    }
   }
 
   void _select(CountryData country) {
