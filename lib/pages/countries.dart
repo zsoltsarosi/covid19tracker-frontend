@@ -36,24 +36,34 @@ class _CountriesState extends FutureBuilderState<Countries> {
       ..addListener(() {
         if (_controller.offset >= _controller.position.maxScrollExtent && !_controller.position.outOfRange) {
           // bottom
-          setState(() {
-            _onTop = false;
-          });
+          _triggerOnTopLeft();
         } else if (_controller.offset <= _controller.position.minScrollExtent &&
             !_controller.position.outOfRange) {
           // top
-          setState(() {
-            _onTop = true;
-          });
+          _triggerOnTopReached();
         } else {
           // in between
-          setState(() {
-            _onTop = false;
-          });
+          _triggerOnTopLeft();
         }
       });
 
     this.getData();
+  }
+
+  void _triggerOnTopReached() {
+    if (!_onTop) {
+      setState(() {
+        _onTop = true;
+      });
+    }
+  }
+
+  void _triggerOnTopLeft() {
+    if (_onTop) {
+      setState(() {
+        _onTop = false;
+      });
+    }
   }
 
   String _countryFlag(String countryCode) {
