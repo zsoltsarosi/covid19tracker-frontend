@@ -1,10 +1,12 @@
 import 'package:covid19tracker/base/future_builder_state.dart';
+import 'package:covid19tracker/bloc/bloc.dart';
 import 'package:covid19tracker/helper/extension_methods.dart';
 import 'package:covid19tracker/model/country_data.dart';
 import 'package:covid19tracker/screens/country_detail.dart';
 import 'package:covid19tracker/services/country_data_service.dart';
 import 'package:covid19tracker/widgets/figure_container.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 class Countries extends StatefulWidget {
@@ -13,9 +15,6 @@ class Countries extends StatefulWidget {
 }
 
 class _CountriesState extends FutureBuilderState<Countries> {
-  final CountryDataService service = CountryDataService();
-  Future<List<CountryData>> getDataFuture;
-
   ScrollController _controller;
   var _onTop = true;
 
@@ -23,10 +22,6 @@ class _CountriesState extends FutureBuilderState<Countries> {
   var _sortAsc = false;
 
   final NumberFormat formatter = NumberFormat();
-
-  void getData() {
-    this.getDataFuture = this.service.getData();
-  }
 
   @override
   void initState() {
@@ -46,8 +41,6 @@ class _CountriesState extends FutureBuilderState<Countries> {
           _triggerOnTopLeft();
         }
       });
-
-    this.getData();
   }
 
   void _triggerOnTopReached() {
@@ -190,21 +183,28 @@ class _CountriesState extends FutureBuilderState<Countries> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<CountryData>>(
-      future: this.getDataFuture,
-      builder: (BuildContext context, AsyncSnapshot<List<CountryData>> snapshot) {
-        if (snapshot.connectionState != ConnectionState.done) {
-          return super.buildLoader();
-        }
-        if (snapshot.hasError) {
-          return super.buildError(snapshot.error);
-        }
-        if (snapshot.hasData) {
-          return _buildDataView(snapshot.data);
-        }
+    return BlocProvider(
+        create: (context) => CountryDataBloc(service: CountryDataService())..add(CountryDataFetch()),
+        child: BlocBuilder<CountryDataBloc, CountryDataState>(
+          builder: (context, state) {
+            if (state is CountryDataLoaded) {
+              if (state.countryData == null || state.countryData.isEmpty) {
+                return super.buildNoData();
+              }
 
-        return super.buildNoData();
-      },
-    );
+              return _buildDataView(state.countryData);
+            }
+
+            if (state is CountryDataFailure) {
+              return super.buildError(state.exception);
+            }
+
+            if (state is CountryDataInitial) {
+              return super.buildLoader();
+            }
+
+            return super.buildNoData();
+          },
+        ));
   }
 }
