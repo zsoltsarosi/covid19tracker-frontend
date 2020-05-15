@@ -30,6 +30,9 @@ dependencies:
   charts_common:
   charts_flutter:
   webview_flutter:
+  equatable:
+  flutter_bloc:
+  rxdart:
 
 dev_dependencies:
   flutter_test:
