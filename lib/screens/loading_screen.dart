@@ -1,5 +1,4 @@
 import 'package:covid19tracker/constants.dart';
-import 'package:covid19tracker/services/world_aggregated_service.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
