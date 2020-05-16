@@ -32,7 +32,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
       backgroundColor: kMainBgGradient1,
       body: Center(
         child: Shimmer.fromColors(
-            child: Text("Loading data ...", style: textTheme.headline4), baseColor: Colors.white30, highlightColor: Colors.white),
+            child: Text("Loading data ...", style: textTheme.headline5), baseColor: Colors.white30, highlightColor: Colors.white),
       ),
     );
   }
