@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:covid19tracker/model/news.dart' as model;
+import 'package:covid19tracker/model/model.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -18,7 +18,7 @@ class _NewsReaderState extends State<NewsReader> {
 
   @override
   Widget build(BuildContext context) {
-    final model.News news = ModalRoute.of(context).settings.arguments;
+    final News news = ModalRoute.of(context).settings.arguments;
 
     var url = news.endUrl;
     if (url == null) url = news.link;

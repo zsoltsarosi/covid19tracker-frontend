@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:covid19tracker/model/news.dart';
+import 'package:covid19tracker/model/model.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 

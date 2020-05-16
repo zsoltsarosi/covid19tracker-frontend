@@ -1,4 +1,4 @@
-import 'package:covid19tracker/model/country_data.dart';
+import 'package:covid19tracker/model/model.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class CountryDataState extends Equatable {

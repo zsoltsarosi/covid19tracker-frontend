@@ -1,7 +1,7 @@
 import 'package:covid19tracker/base/future_builder_state.dart';
 import 'package:covid19tracker/bloc/bloc.dart';
 import 'package:covid19tracker/helper/extension_methods.dart';
-import 'package:covid19tracker/model/country_data.dart';
+import 'package:covid19tracker/model/model.dart';
 import 'package:covid19tracker/screens/country_detail.dart';
 import 'package:covid19tracker/services/country_data_service.dart';
 import 'package:covid19tracker/widgets/figure_container.dart';

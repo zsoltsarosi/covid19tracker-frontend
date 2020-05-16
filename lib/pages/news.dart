@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:covid19tracker/base/future_builder_state.dart';
 import 'package:covid19tracker/constants.dart';
-import 'package:covid19tracker/model/news.dart' as model;
+import 'package:covid19tracker/model/model.dart' as model;
 import 'package:covid19tracker/screens/news_reader.dart';
 import 'package:covid19tracker/services/news_service.dart';
 import 'package:flutter/material.dart';

@@ -1,14 +1,13 @@
 import 'package:covid19tracker/base/future_builder_state.dart';
 import 'package:covid19tracker/constants.dart';
-import 'package:covid19tracker/model/country_data.dart';
+import 'package:covid19tracker/model/model.dart';
 import 'package:covid19tracker/services/country_data_service.dart';
 import 'package:covid19tracker/widgets/daily_chart.dart';
 import 'package:covid19tracker/widgets/main_data_view.dart';
 import 'package:flutter/material.dart';
-import 'package:covid19tracker/model/country_data.dart' as model;
 
 class CountryDetail extends StatefulWidget {
-  final model.CountryData country;
+  final CountryData country;
 
   CountryDetail({Key key, @required this.country}) : super(key: key);
 
