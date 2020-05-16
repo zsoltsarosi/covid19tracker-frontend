@@ -1,11 +1,13 @@
 import 'dart:convert';
 
 import 'package:covid19tracker/base/future_builder_state.dart';
+import 'package:covid19tracker/bloc/bloc.dart';
 import 'package:covid19tracker/constants.dart';
 import 'package:covid19tracker/model/model.dart' as model;
 import 'package:covid19tracker/screens/news_reader.dart';
 import 'package:covid19tracker/services/news_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class News extends StatefulWidget {
   News();
@@ -15,19 +17,6 @@ class News extends StatefulWidget {
 }
 
 class _NewsState extends FutureBuilderState<News> {
-  final NewsService service = NewsService();
-  Future<List<model.News>> getDataFuture;
-
-  void getData() {
-    this.getDataFuture = this.service.getData();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    this.getData();
-  }
-
   String _getNewsDateString(model.News news) {
     var local = news.date.toLocal();
     var now = DateTime.now();
@@ -94,7 +83,8 @@ class _NewsState extends FutureBuilderState<News> {
                             // color: Colors.yellow,
                             child: Row(
                               children: <Widget>[
-                                Expanded(child: Text(_getNewsDateString(news[index]), style: textTheme.caption)),
+                                Expanded(
+                                    child: Text(_getNewsDateString(news[index]), style: textTheme.caption)),
                                 Text(news[index].sourceName, style: textTheme.caption)
                               ],
                             ),
@@ -123,21 +113,28 @@ class _NewsState extends FutureBuilderState<News> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<model.News>>(
-      future: this.getDataFuture,
-      builder: (BuildContext context, AsyncSnapshot<List<model.News>> snapshot) {
-        if (snapshot.connectionState != ConnectionState.done) {
-          return super.buildLoader();
-        }
-        if (snapshot.hasError) {
-          return super.buildError(snapshot.error);
-        }
-        if (snapshot.hasData) {
-          return _buildDataView(context, snapshot.data);
-        }
+    return BlocProvider(
+        create: (context) => NewsBloc(service: NewsService())..add(NewsFetch()),
+        child: BlocBuilder<NewsBloc, NewsState>(
+          builder: (context, state) {
+            if (state is NewsLoaded) {
+              if (state.news == null || state.news.isEmpty) {
+                return super.buildNoData();
+              }
 
-        return super.buildNoData();
-      },
-    );
+              return _buildDataView(context, state.news);
+            }
+
+            if (state is NewsFailure) {
+              return super.buildError(state.exception);
+            }
+
+            if (state is NewsInitial) {
+              return super.buildLoader();
+            }
+
+            return super.buildNoData();
+          },
+        ));
   }
 }
