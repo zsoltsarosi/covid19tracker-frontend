@@ -5,4 +5,8 @@ abstract class CountryDataEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class CountryDataFetch extends CountryDataEvent {}
+class CountryDataFetch extends CountryDataEvent 
+{
+  final String filter;
+  CountryDataFetch({this.filter});
+}

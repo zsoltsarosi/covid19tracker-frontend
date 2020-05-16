@@ -28,18 +28,21 @@ class CountryDataBloc extends Bloc<CountryDataEvent, CountryDataState> {
   @override
   Stream<CountryDataState> mapEventToState(CountryDataEvent event) async* {
     final currentState = state;
-    if (event is CountryDataFetch && !_hasReachedMax(currentState)) {
+    if (event is CountryDataFetch) {
       try {
+        final countryData = await this.service.getData(event.filter);
+        yield CountryDataLoaded(filter: event.filter, countryData: countryData);
+        return;
+      } catch (exception) {
         if (currentState is CountryDataInitial) {
-          final countryData = await this.service.getData();
-          yield CountryDataLoaded(countryData: countryData);
+          yield currentState.copyWith(exception: exception);
           return;
         }
-      } catch (exception) {
-        yield CountryDataFailure(exception);
+        if (currentState is CountryDataLoaded) {
+          yield currentState.copyWith(exception: exception);
+          return;
+        }
       }
     }
   }
-
-  bool _hasReachedMax(CountryDataState state) => state is CountryDataLoaded;
 }

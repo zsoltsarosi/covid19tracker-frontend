@@ -19,6 +19,7 @@ abstract class FutureBuilderState<T extends StatefulWidget> extends State<T> {
   
   @protected
   Widget buildError(Object error) {
+    print('error: $error');
     return Column(
       children: <Widget>[
         Text('Error loading data'),

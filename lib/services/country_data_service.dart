@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:covid19tracker/model/country_data.dart';
+import 'package:covid19tracker/model/model.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 
@@ -33,7 +33,7 @@ class CountryDataService {
     return parsed.map<CountryData>((json) => CountryData.fromJson(json)).toList();
   }
 
-  Future<List<CountryData>> getData() async {
+  Future<List<CountryData>> getData([String filter]) async {
     List<CountryData> data = <CountryData>[];
     final response = await http.get(_url);
 
@@ -41,7 +41,12 @@ class CountryDataService {
       data = _parseData(response.body);
       print('Data loaded. Data points: ${data.length}. Updating cache.');
       await _writeFile(response.body);
-      return data;
+
+      if (filter == null || filter.trim().isEmpty) return data;
+
+      filter = filter.trim().toLowerCase();
+      var result = data.where((country) => country.country.toLowerCase().contains(filter)).toList();
+      return result;
     } else {
       print('Error loading data: ${response.statusCode}. Trying fallback to cache.');
 

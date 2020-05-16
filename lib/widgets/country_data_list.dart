@@ -16,8 +16,6 @@ class CountryDataList extends StatefulWidget {
 }
 
 class _CountryDataListState extends State<CountryDataList> {
-  List<CountryData> _data;
-
   ScrollController _controller;
   var _onTop = true;
 
@@ -29,8 +27,6 @@ class _CountryDataListState extends State<CountryDataList> {
   @override
   void initState() {
     super.initState();
-
-    _data = widget.data;
 
     _controller = ScrollController()
       ..addListener(() {
@@ -79,7 +75,11 @@ class _CountryDataListState extends State<CountryDataList> {
 
   @override
   Widget build(BuildContext context) {
-    _data.sort((a, b) {
+
+    var data = widget.data;
+    print('build country data list: ${data.length}');
+
+    data.sort((a, b) {
       switch (_sortIndex) {
         case 0:
           return a.country.compareTo(b.country);
@@ -93,7 +93,7 @@ class _CountryDataListState extends State<CountryDataList> {
           return a.country.compareTo(b.country);
       }
     });
-    if (!_sortAsc) _data = _data.reversed.toList();
+    if (!_sortAsc) data = data.reversed.toList();
 
     TextTheme textTheme = Theme.of(context).textTheme;
 
@@ -105,7 +105,7 @@ class _CountryDataListState extends State<CountryDataList> {
     var diedStyle = valueTextStyle.copyWith(color: Theme.of(context).colorScheme.died);
 
     final dataRows = [
-      for (var item in _data)
+      for (var item in data)
         DataRow(cells: [
           DataCell(
               Container(
