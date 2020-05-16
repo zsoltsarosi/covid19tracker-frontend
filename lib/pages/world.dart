@@ -1,9 +1,11 @@
 import 'package:covid19tracker/base/future_builder_state.dart';
+import 'package:covid19tracker/bloc/bloc.dart';
 import 'package:covid19tracker/model/model.dart';
 import 'package:covid19tracker/services/world_aggregated_service.dart';
 import 'package:covid19tracker/widgets/daily_chart.dart';
 import 'package:covid19tracker/widgets/main_data_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class World extends StatefulWidget {
   @override
@@ -11,19 +13,6 @@ class World extends StatefulWidget {
 }
 
 class _WorldState extends FutureBuilderState<World> {
-  final WorldAggregatedService service = WorldAggregatedService();
-  Future<List<WorldAggregated>> getDataFuture;
-
-  void getData() {
-    this.getDataFuture = this.service.getData();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    this.getData();
-  }
-
   Widget _buildDataView(List<WorldAggregated> data) {
     return Container(
       // color: Colors.blueGrey[200],
@@ -38,21 +27,28 @@ class _WorldState extends FutureBuilderState<World> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<WorldAggregated>>(
-      future: this.getDataFuture,
-      builder: (BuildContext context, AsyncSnapshot<List<WorldAggregated>> snapshot) {
-        if (snapshot.connectionState != ConnectionState.done) {
-          return super.buildLoader();
-        }
-        if (snapshot.hasError) {
-          return super.buildError(snapshot.error);
-        }
-        if (snapshot.hasData) {
-          return _buildDataView(snapshot.data);
-        }
+    return BlocProvider(
+        create: (context) => WorldDataBloc(service: WorldAggregatedService())..add(WorldDataFetch()),
+        child: BlocBuilder<WorldDataBloc, WorldDataState>(
+          builder: (context, state) {
+            if (state is WorldDataLoaded) {
+              if (state.worldData == null || state.worldData.isEmpty) {
+                return super.buildNoData();
+              }
 
-        return super.buildNoData();
-      },
-    );
+              return _buildDataView(state.worldData);
+            }
+
+            if (state is WorldDataFailure) {
+              return super.buildError(state.exception);
+            }
+
+            if (state is WorldDataInitial) {
+              return super.buildLoader();
+            }
+
+            return super.buildNoData();
+          },
+        ));
   }
 }
