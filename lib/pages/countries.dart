@@ -16,7 +16,8 @@ class _CountriesState extends FutureBuilderState<Countries> {
     print('data countries count: ${state.countryData?.length}');
 
     var dataWidget = state.exception != null
-        ? super.buildError(state.exception)
+        ? super.buildError(
+            state.exception, () => BlocProvider.of<CountryDataBloc>(context).add(CountryDataFetch()))
         : state.countryData == null || state.countryData.isEmpty
             ? super.buildNoData()
             : CountryDataList(data: state.countryData);
@@ -40,7 +41,8 @@ class _CountriesState extends FutureBuilderState<Countries> {
           builder: (context, state) {
             if (state is CountryDataInitial) {
               if (state.exception != null)
-                return super.buildError(state.exception);
+                return super.buildError(
+                    state.exception, () => BlocProvider.of<CountryDataBloc>(context).add(CountryDataFetch()));
               else
                 return super.buildLoader();
             }

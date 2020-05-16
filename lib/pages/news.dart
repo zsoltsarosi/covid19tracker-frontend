@@ -126,7 +126,8 @@ class _NewsState extends FutureBuilderState<News> {
             }
 
             if (state is NewsFailure) {
-              return super.buildError(state.exception);
+              return super
+                  .buildError(state.exception, () => BlocProvider.of<NewsBloc>(context).add(NewsFetch()));
             }
 
             if (state is NewsInitial) {

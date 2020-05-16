@@ -71,7 +71,9 @@ class _CountryDetailState extends FutureBuilderState<CountryDetail> {
           return super.buildLoader();
         }
         if (snapshot.hasError) {
-          return super.buildError(snapshot.error);
+          return super.buildError(snapshot.error, () {
+            setState(() => this.getData());
+          });
         }
         if (snapshot.hasData) {
           return _buildDataView(snapshot.data);

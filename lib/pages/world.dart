@@ -40,7 +40,8 @@ class _WorldState extends FutureBuilderState<World> {
             }
 
             if (state is WorldDataFailure) {
-              return super.buildError(state.exception);
+              return super.buildError(
+                  state.exception, () => BlocProvider.of<WorldDataBloc>(context).add(WorldDataFetch()));
             }
 
             if (state is WorldDataInitial) {

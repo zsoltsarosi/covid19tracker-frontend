@@ -4,10 +4,6 @@ import 'package:flutter/widgets.dart';
 abstract class FutureBuilderState<T extends StatefulWidget> extends State<T> {
 
   @protected
-  void getData() {
-  }
-
-  @protected
   Widget buildLoader() {
     return Center(
         child: SizedBox(
@@ -18,17 +14,15 @@ abstract class FutureBuilderState<T extends StatefulWidget> extends State<T> {
   }
   
   @protected
-  Widget buildError(Object error) {
+  Widget buildError(Object error, VoidCallback onRefresh) {
     print('error: $error');
     return Column(
       children: <Widget>[
-        Text('Error loading data'),
+        Text('Error loading data', style: Theme.of(context).textTheme.headline5,),
         IconButton(
-            icon: Icon(Icons.refresh, color: Colors.black, size: 20),
-            onPressed: () {
-              this.getData();
-              setState(() {});
-            }),
+            icon: Icon(Icons.refresh, color: Colors.black, size: 40),
+            onPressed: () => onRefresh()
+            ),
       ],
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
