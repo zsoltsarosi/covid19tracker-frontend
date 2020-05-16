@@ -1,30 +1,19 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:covid19tracker/model/model.dart';
+import 'package:covid19tracker/services/data_provider.dart';
 import 'package:http/http.dart' as http;
-import 'package:path_provider/path_provider.dart';
 
-class NewsService {
+class NewsService extends DataProvider {
   static final NewsService _singleton = NewsService._internal();
 
-  String _urlFeed = "http://10.0.2.2:54820/api/rssnews";
-
-  Future<String> get _localPath async {
-    final directory = await getApplicationDocumentsDirectory();
-    return directory.path;
-  }
-
-  Future<File> get _localFile async {
-    final path = await _localPath;
-    return File('$path/news.json');
-  }
+  String _url = "http://10.0.2.2:54820/api/rssnews";
 
   factory NewsService() {
     return _singleton;
   }
 
-  NewsService._internal();
+  NewsService._internal() : super(cacheThresholdInMinutes: 15, fileName: "news");
 
   List<News> _parseData(String responseBody) {
     final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
@@ -32,41 +21,41 @@ class NewsService {
     return parsed.map<News>((json) => News.fromJson(json)).toList();
   }
 
-  Future<List<News>> getData() async {
-    List<News> data = <News>[];
-    final response = await http.get(_urlFeed);
+  Future<List<News>> _requestDataAndUpdateCache() async {
+    print('Requesting news from server.');
+    final response = await http.get(_url);
 
     if (response.statusCode == 200) {
-      data = _parseData(response.body);
+      var data = _parseData(response.body);
       print('News loaded. Updating cache.');
-      await _writeFile(response.body);
+      await updateCache(response.body);
       return data;
     } else {
-      print('Error loading news: ${response.statusCode}. Trying fallback to cache.');
-
-      // trying to get cached data
-      var cachedJson = await _readFile();
-      if (cachedJson.length > 0) {
-        data = _parseData(cachedJson);
-        return data;
-      }
-
+      print('Error loading data: ${response.statusCode}.');
       throw Exception('Failed to load data');
     }
   }
 
-  Future<File> _writeFile(String jsonData) async {
-    final file = await _localFile;
-    return file.writeAsString(jsonData);
-  }
+  Future<List<News>> getData() async {
+    var cachedJson = await readFile();
 
-  Future<String> _readFile() async {
-    try {
-      final file = await _localFile;
-      String contents = await file.readAsString();
-      return contents;
-    } catch (e) {
-      return "";
+    // if cached data exists
+    if (cachedJson.length > 0) {
+      var cacheData = parseCacheData(cachedJson);
+
+      // update cache in background if it is too old
+      if (cacheData.timeStamp.difference(DateTime.now().toUtc()).inMinutes > cacheThresholdInMinutes) {
+        print('Cached data too old.');
+        _requestDataAndUpdateCache().catchError((e, s) => print(e));
+      }
+
+      print('Returning data from cache.');
+      return _parseData(cacheData.jsonData);
     }
+
+    // no chached data
+    print('Cached data not found.');
+    var data = await _requestDataAndUpdateCache().catchError((e, s) => print(e));
+    return data ?? <News>[];
   }
 }
