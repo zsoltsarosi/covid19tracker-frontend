@@ -1,5 +1,5 @@
 import 'package:covid19tracker/base/future_builder_state.dart';
-import 'package:covid19tracker/bloc/bloc.dart';
+import 'package:covid19tracker/bloc/country_data/bloc.dart';
 import 'package:covid19tracker/services/country_data_service.dart';
 import 'package:covid19tracker/widgets/country_data_list.dart';
 import 'package:covid19tracker/widgets/country_search_field.dart';

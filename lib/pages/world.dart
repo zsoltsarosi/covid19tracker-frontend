@@ -1,5 +1,5 @@
 import 'package:covid19tracker/base/future_builder_state.dart';
-import 'package:covid19tracker/bloc/bloc.dart';
+import 'package:covid19tracker/bloc/world_data/bloc.dart';
 import 'package:covid19tracker/model/model.dart';
 import 'package:covid19tracker/services/world_aggregated_service.dart';
 import 'package:covid19tracker/widgets/daily_chart.dart';

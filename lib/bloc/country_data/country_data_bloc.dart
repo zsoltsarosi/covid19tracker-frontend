@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:covid19tracker/bloc/bloc.dart';
+import 'package:covid19tracker/bloc/country_data/bloc.dart';
 import 'package:covid19tracker/services/country_data_service.dart';
 import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
