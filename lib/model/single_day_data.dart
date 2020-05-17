@@ -1,5 +1,5 @@
 
-class SingleDayData {
+abstract class SingleDayData {
   DateTime date;
   int confirmed;
   int recovered;
