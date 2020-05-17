@@ -1,6 +1,6 @@
 import 'package:covid19tracker/constants.dart';
+import 'package:covid19tracker/pages/animated_drawer.dart';
 import 'package:covid19tracker/pages/countries.dart';
-import 'package:covid19tracker/pages/drawer.dart';
 import 'package:covid19tracker/pages/news.dart';
 import 'package:covid19tracker/pages/world.dart';
 import 'package:flutter/material.dart';
@@ -10,12 +10,17 @@ class MainScreen extends StatefulWidget {
 
   MainScreen({Key key}) : super(key: key);
 
+  static _MainScreenState of(BuildContext context) =>
+      context.findAncestorStateOfType<_MainScreenState>();
+
   @override
   _MainScreenState createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> {
-  PageController _pageController = new PageController(initialPage: 0);
+  PageController _pageController = PageController(initialPage: 0);
+
+  void selectPage(int pageIndex) => _pageController.jumpToPage(pageIndex);
 
   @override
   Widget build(BuildContext context) {
@@ -25,45 +30,54 @@ class _MainScreenState extends State<MainScreen> {
       TabPage(name: 'News', icon: Icons.rss_feed, widget: News()),
     };
 
-    return Stack(children: [
-      Container(
-        decoration: new BoxDecoration(
-            gradient: new LinearGradient(
-          begin: FractionalOffset.topCenter,
-          end: FractionalOffset.bottomCenter,
-          colors: [
-            kMainBgGradient1,
-            kMainBgGradient2,
-          ],
-          stops: [0.0, 1.0],
-        )),
-      ),
-      Scaffold(
-        backgroundColor: const Color(0x00000000),
-        appBar: AppBar(
+    return AnimatedDrawer(
+      child: Stack(children: [
+        Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+            begin: FractionalOffset.topCenter,
+            end: FractionalOffset.bottomCenter,
+            colors: [
+              kMainBgGradient1,
+              kMainBgGradient2,
+            ],
+            stops: [0.0, 1.0],
+          )),
+        ),
+        Scaffold(
           backgroundColor: const Color(0x00000000),
-          elevation: 0.0,
-          title: Align(child: Text("COVID-19 Tracker"), alignment: Alignment.center),
-          bottom: new CustomTabBar(
-            pageController: _pageController,
-            pages: pages.toList(),
+          appBar: AppBar(
+            backgroundColor: const Color(0x00000000),
+            elevation: 0.0,
+            title: Align(child: Text("COVID-19 Tracker"), alignment: Alignment.center),
+            leading: Builder(
+              builder: (context) {
+                return IconButton(
+                  icon: Icon(Icons.menu, size: 30),
+                  onPressed: () => AnimatedDrawer.of(context).toggleDrawer(),
+                );
+              },
+            ),
+            bottom: CustomTabBar(
+              pageController: _pageController,
+              pages: pages.toList(),
+            ),
+            actions: <Widget>[
+              Padding(
+                  padding: EdgeInsets.only(right: 20),
+                  child: GestureDetector(
+                    onTap: () {},
+                    child: Icon(Icons.info, size: 30),
+                  )),
+            ],
           ),
-          actions: <Widget>[
-            Padding(
-                padding: EdgeInsets.only(right: 20),
-                child: GestureDetector(
-                  onTap: () {},
-                  child: Icon(Icons.info, size: 20),
-                )),
-          ],
-        ),
-        drawer: DrawerWidget(),
-        body: new PageView(
-          controller: _pageController,
-          children: [for (var page in pages) page.widget],
-        ),
-      )
-    ]);
+          body: PageView(
+            controller: _pageController,
+            children: [for (var page in pages) page.widget],
+          ),
+        )
+      ]),
+    );
   }
 }
 
@@ -114,6 +128,7 @@ class CustomTabBar extends AnimatedWidget implements PreferredSizeWidget {
                   ),
                 ),
                 onTap: () {
+                  AnimatedDrawer.of(context).close();
                   pageController.animateToPage(
                     index,
                     curve: Curves.easeOut,
