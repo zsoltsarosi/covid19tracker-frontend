@@ -13,8 +13,6 @@ class Countries extends StatefulWidget {
 
 class _CountriesState extends FutureBuilderState<Countries> {
   Widget _buildDataView(CountryDataLoaded state) {
-    print('data countries count: ${state.countryData?.length}');
-
     var dataWidget = state.exception != null
         ? super.buildError(
             state.exception, () => BlocProvider.of<CountryDataBloc>(context).add(CountryDataFetch()))

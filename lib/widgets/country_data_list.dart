@@ -75,10 +75,7 @@ class _CountryDataListState extends State<CountryDataList> {
 
   @override
   Widget build(BuildContext context) {
-
     var data = widget.data;
-    print('build country data list: ${data.length}');
-
     data.sort((a, b) {
       switch (_sortIndex) {
         case 0:
