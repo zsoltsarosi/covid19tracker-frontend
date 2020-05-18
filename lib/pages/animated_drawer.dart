@@ -1,7 +1,6 @@
 import 'package:covid19tracker/constants.dart';
 import 'package:covid19tracker/screens/main_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class AnimatedDrawer extends StatefulWidget {
   final Widget child;
@@ -130,20 +129,16 @@ class MyDrawer extends StatelessWidget {
         child: Theme(
           data: ThemeData(brightness: Brightness.dark),
           child: Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(8.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
               children: [
-                // Image.asset(
-                //   'assets/flutter_europe_white.png',
-                //   width: 200,
-                // ),
                 ListTile(
                   title: Center(
                       child: Column(
                     children: <Widget>[
-                      Text('Created by Zsolt Sarosi'),
+                      Text('Created by Zsolt Sarosi with \u2665'),
                       Text('In the lockdown of Budapest, 2020'),
                       SizedBox(height: 40),
                     ],
@@ -173,21 +168,18 @@ class MyDrawer extends StatelessWidget {
                     MainScreen.of(context).selectPage(2);
                   },
                 ),
-                ListTile(
-                  leading: Icon(Icons.info),
-                  title: Text('Impressum'),
+                Expanded(
+                  child: ListTile(
+                    leading: Icon(Icons.info),
+                    title: Text('Impressum'),
+                  ),
                 ),
                 ListTile(
-                  leading: Image.asset(
-                    'assets/images/GitHub_Logo_White.png',
-                    height: 30,
+                  title: Column(
+                    children: <Widget>[
+                      Text('Conceptional and UI Design: \u2726 Xuezhou Fan \u2726'),
+                    ],
                   ),
-                  onTap: () async {
-                    var link = "https://github.com/zsoltsarosi/covid19tracker-frontend";
-                    if (await canLaunch(link)) {
-                      await launch(link);
-                    }
-                  },
                 ),
               ],
             ),

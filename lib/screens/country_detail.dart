@@ -52,11 +52,13 @@ class _CountryDetailState extends FutureBuilderState<CountryDetail> {
             actions: <Widget>[],
           ),
         ),
-        body: Column(
-          children: <Widget>[
-            Expanded(child: MainDataView(data: data.last), flex: 1),
-            Expanded(child: DailyChart(data: data, colorScheme: Theme.of(context).colorScheme), flex: 4),
-          ],
+        body: SafeArea(
+          child: Column(
+            children: <Widget>[
+              Expanded(child: MainDataView(data: data.last), flex: 1),
+              Expanded(child: DailyChart(data: data, colorScheme: Theme.of(context).colorScheme), flex: 4),
+            ],
+          ),
         ),
       )
     ]);
