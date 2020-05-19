@@ -8,7 +8,9 @@ class MainDataView extends StatefulWidget {
   final SingleDayData data;
   final double increaseRate;
 
-  MainDataView({Key key, this.increaseRate, @required this.data}) : super(key: key);
+  MainDataView({Key key, this.increaseRate, @required this.data})
+      : assert(data != null),
+        super(key: key);
 
   @override
   _MainDataViewState createState() => _MainDataViewState();
@@ -30,8 +32,7 @@ class _MainDataViewState extends State<MainDataView> {
       return Container(width: 0.0, height: 0.0);
     }
 
-    return Text("Change: ${widget.increaseRate.toStringAsFixed(2)} %",
-        style: textTheme.caption);
+    return Text("Change: ${widget.increaseRate.toStringAsFixed(2)} %", style: textTheme.caption);
   }
 
   @override
@@ -98,7 +99,7 @@ class MainData extends StatelessWidget {
         children: <Widget>[
           Circle(color: this.color),
           Text(formatter.format(this.value), style: valueStyle),
-          Text(this.title, style: textTheme.caption)          
+          Text(this.title, style: textTheme.caption)
         ],
       ),
     );

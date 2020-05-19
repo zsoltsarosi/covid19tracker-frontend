@@ -9,7 +9,9 @@ class DailyChart extends StatefulWidget {
   final List<SingleDayData> data;
   final ColorScheme colorScheme;
 
-  DailyChart({Key key, @required this.data, @required this.colorScheme}) : super(key: key);
+  DailyChart({Key key, @required this.data, @required this.colorScheme})
+      : assert(data != null),
+        super(key: key);
 
   @override
   _DailyChartState createState() => _DailyChartState();
@@ -32,21 +34,19 @@ class _DailyChartState extends State<DailyChart> {
   Widget build(BuildContext context) {
     return FigureContainer(
         child: charts.LineChart(
-          _seriesList,
-          animate: false,
-          behaviors: [
-            charts.SeriesLegend()
-          ],
-          domainAxis: charts.NumericAxisSpec(
-            // Make sure that we draw the domain axis line.
-            showAxisLine: true,
-            tickFormatterSpec: charts.BasicNumericTickFormatterSpec((num value) {
-              var date = DateTime(2020, 1, 1).add(Duration(days: value.round()));
-              return DateFormat.MMMd().format(date);
-            }),
-          ),
-          defaultRenderer: charts.LineRendererConfig(includeLine: true, includeArea: true, stacked: true),
-        ));
+      _seriesList,
+      animate: false,
+      behaviors: [charts.SeriesLegend()],
+      domainAxis: charts.NumericAxisSpec(
+        // Make sure that we draw the domain axis line.
+        showAxisLine: true,
+        tickFormatterSpec: charts.BasicNumericTickFormatterSpec((num value) {
+          var date = DateTime(2020, 1, 1).add(Duration(days: value.round()));
+          return DateFormat.MMMd().format(date);
+        }),
+      ),
+      defaultRenderer: charts.LineRendererConfig(includeLine: true, includeArea: true, stacked: true),
+    ));
   }
 
   int daysSince2020Jan1(DateTime date) {
