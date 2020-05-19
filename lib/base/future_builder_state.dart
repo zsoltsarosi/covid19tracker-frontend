@@ -16,16 +16,18 @@ abstract class FutureBuilderState<T extends StatefulWidget> extends State<T> {
   @protected
   Widget buildError(Object error, VoidCallback onRefresh) {
     print('error: $error');
-    return Column(
-      children: <Widget>[
-        Text('Error loading data', style: Theme.of(context).textTheme.headline5,),
-        IconButton(
-            icon: Icon(Icons.refresh, color: Colors.black, size: 40),
-            onPressed: () => onRefresh()
-            ),
-      ],
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
+    return Center(
+      child: Column(
+        children: <Widget>[
+          Text('Error loading data', style: Theme.of(context).textTheme.headline5,),
+          IconButton(
+              icon: Icon(Icons.refresh, color: Colors.black, size: 40),
+              onPressed: () => onRefresh()
+              ),
+        ],
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+      ),
     );
   }
 
