@@ -1,4 +1,5 @@
 import 'package:covid19tracker/constants.dart';
+import 'package:covid19tracker/pages/information.dart';
 import 'package:covid19tracker/screens/main_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -171,7 +172,15 @@ class MyDrawer extends StatelessWidget {
                 Expanded(
                   child: ListTile(
                     leading: Icon(Icons.info),
-                    title: Text('Impressum'),
+                    title: Text('Information'),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => InformationPage(),
+                        ),
+                      );
+                    },
                   ),
                 ),
                 ListTile(

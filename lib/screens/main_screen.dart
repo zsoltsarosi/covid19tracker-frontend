@@ -1,6 +1,7 @@
 import 'package:covid19tracker/constants.dart';
 import 'package:covid19tracker/pages/animated_drawer.dart';
 import 'package:covid19tracker/pages/countries.dart';
+import 'package:covid19tracker/pages/information.dart';
 import 'package:covid19tracker/pages/news.dart';
 import 'package:covid19tracker/pages/world.dart';
 import 'package:flutter/material.dart';
@@ -10,8 +11,7 @@ class MainScreen extends StatefulWidget {
 
   MainScreen({Key key}) : super(key: key);
 
-  static _MainScreenState of(BuildContext context) =>
-      context.findAncestorStateOfType<_MainScreenState>();
+  static _MainScreenState of(BuildContext context) => context.findAncestorStateOfType<_MainScreenState>();
 
   @override
   _MainScreenState createState() => _MainScreenState();
@@ -49,7 +49,7 @@ class _MainScreenState extends State<MainScreen> {
           appBar: AppBar(
             backgroundColor: const Color(0x00000000),
             elevation: 0.0,
-            title: Align(child: Text("COVID-19 Tracker"), alignment: Alignment.center),
+            title: Center(child: Text("COVID-19 Tracker")),
             leading: Builder(
               builder: (context) {
                 return IconButton(
@@ -66,7 +66,14 @@ class _MainScreenState extends State<MainScreen> {
               Padding(
                   padding: EdgeInsets.only(right: 20),
                   child: GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => InformationPage(),
+                        ),
+                      );
+                    },
                     child: Icon(Icons.info, size: 30),
                   )),
             ],
