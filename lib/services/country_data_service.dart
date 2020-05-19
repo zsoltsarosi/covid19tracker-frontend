@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:covid19tracker/model/model.dart';
@@ -24,7 +25,17 @@ class CountryDataService extends DataProvider {
 
   Future<List<CountryData>> _requestDataAndUpdateCache() async {
     print('Requesting data from server.');
-    final response = await http.get(_url);
+
+    http.Response response;
+    try {
+      response = await http.get(_url).timeout(DataProvider.kTimeoutDuration);
+    } on TimeoutException catch (err) {
+      print('Timed out loading data.');
+      throw err;
+    } catch (err) {
+      print('Error loading data: $err');
+      throw err;
+    }
 
     if (response.statusCode == 200) {
       var data = _parseData(response.body);
@@ -71,11 +82,21 @@ class CountryDataService extends DataProvider {
   }
 
   Future<List<CountryData>> getDetail(String country) async {
-    List<CountryData> data = <CountryData>[];
-    final response = await http.get(_urlDetail.replaceFirst("##country##", country));
+    http.Response response;
+    try {
+      response = await http
+          .get(_urlDetail.replaceFirst("##country##", country))
+          .timeout(DataProvider.kTimeoutDuration);
+    } on TimeoutException catch (err) {
+      print('Timed out loading data.');
+      throw err;
+    } catch (err) {
+      print('Error loading data: $err');
+      throw err;
+    }
 
     if (response.statusCode == 200) {
-      data = _parseData(response.body);
+      var data = _parseData(response.body);
       print('Country detail loaded. Data points: ${data.length}.');
       return data;
     } else {
