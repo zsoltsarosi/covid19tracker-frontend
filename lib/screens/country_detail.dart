@@ -29,7 +29,7 @@ class _CountryDetailState extends FutureBuilderState<CountryDetail> {
     this.getData();
   }
 
-  Widget _buildDataView(List<CountryData> data) {
+  Widget _buildContentView(Widget body) {
     return Stack(children: [
       Container(
         decoration: new BoxDecoration(
@@ -52,14 +52,7 @@ class _CountryDetailState extends FutureBuilderState<CountryDetail> {
             actions: <Widget>[],
           ),
         ),
-        body: SafeArea(
-          child: Column(
-            children: <Widget>[
-              Expanded(child: MainDataView(data: data.last), flex: 1),
-              Expanded(child: DailyChart(data: data, colorScheme: Theme.of(context).colorScheme), flex: 4),
-            ],
-          ),
-        ),
+        body: body,
       )
     ]);
   }
@@ -70,18 +63,33 @@ class _CountryDetailState extends FutureBuilderState<CountryDetail> {
       future: this.getDataFuture,
       builder: (BuildContext context, AsyncSnapshot<List<CountryData>> snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
-          return super.buildLoader();
+          return _buildContentView(super.buildLoader());
         }
         if (snapshot.hasError) {
-          return super.buildError(snapshot.error, () {
+          return _buildContentView(super.buildError(snapshot.error, () {
             setState(() => this.getData());
-          });
+          }));
         }
         if (snapshot.hasData) {
-          return _buildDataView(snapshot.data);
+          var body = super.buildError("No data loaded", () {
+            setState(() => this.getData());
+          });
+          if (snapshot.data != null && snapshot.data.length > 0) {
+            body = SafeArea(
+              child: Column(
+                children: <Widget>[
+                  Expanded(child: MainDataView(data: snapshot.data.last), flex: 1),
+                  Expanded(
+                      child: DailyChart(data: snapshot.data, colorScheme: Theme.of(context).colorScheme),
+                      flex: 4),
+                ],
+              ),
+            );
+          }
+          return _buildContentView(body);
         }
 
-        return super.buildNoData();
+        return _buildContentView(super.buildNoData());
       },
     );
   }
