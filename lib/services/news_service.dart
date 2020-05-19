@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:covid19tracker/model/model.dart';
@@ -23,7 +24,17 @@ class NewsService extends DataProvider {
 
   Future<List<News>> _requestDataAndUpdateCache() async {
     print('Requesting news from server.');
-    final response = await http.get(_url);
+
+    http.Response response;
+    try {
+      response = await http.get(_url).timeout(DataProvider.kTimeoutDuration);
+    } on TimeoutException catch (err) {
+      print('Timed out loading data.');
+      throw err;
+    } catch (err) {
+      print('Error loading data: $err');
+      throw err;
+    }
 
     if (response.statusCode == 200) {
       var data = _parseData(response.body);
