@@ -56,7 +56,7 @@ class CountryDataService extends DataProvider {
       var cacheData = parseCacheData(cachedJson);
 
       // update cache in background if it is too old
-      if (cacheData.timeStamp.difference(DateTime.now().toUtc()).inMinutes > cacheThresholdInMinutes) {
+      if (DateTime.now().toUtc().difference(cacheData.timeStamp).inMinutes > cacheThresholdInMinutes) {
         print('Cached data too old.');
         _requestDataAndUpdateCache().catchError((e, s) => print(e));
       }
