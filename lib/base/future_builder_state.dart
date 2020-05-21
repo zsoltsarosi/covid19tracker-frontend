@@ -15,7 +15,6 @@ abstract class FutureBuilderState<T extends StatefulWidget> extends State<T> {
   
   @protected
   Widget buildError(Object error, VoidCallback onRefresh) {
-    print('error: $error');
     return Center(
       child: Column(
         children: <Widget>[
