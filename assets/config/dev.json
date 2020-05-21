@@ -1,3 +1,4 @@
 {
-    "baseUrl": "http://10.0.2.2:54820/api/"
+    "baseUrl": "http://10.0.2.2:54820/api/",
+    "apiKey": "68103797-356b-4a52-9c08-09dedccd3efe"
 }

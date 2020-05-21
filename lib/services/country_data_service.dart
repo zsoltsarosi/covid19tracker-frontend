@@ -29,7 +29,8 @@ class CountryDataService extends DataProvider {
 
     http.Response response;
     try {
-      response = await http.get(_url).timeout(DataProvider.kTimeoutDuration);
+      var headers = {DataProvider.kHeaderApiKey: AppConfig.apiKey};
+      response = await http.get(_url, headers: headers).timeout(DataProvider.kTimeoutDuration);
     } on TimeoutException catch (err) {
       print('Timed out loading data.');
       throw err;
@@ -85,8 +86,9 @@ class CountryDataService extends DataProvider {
   Future<List<CountryData>> getDetail(String country) async {
     http.Response response;
     try {
+      var headers = {DataProvider.kHeaderApiKey: AppConfig.apiKey};
       response = await http
-          .get(_urlDetail.replaceFirst("##country##", country))
+          .get(_urlDetail.replaceFirst("##country##", country), headers: headers)
           .timeout(DataProvider.kTimeoutDuration);
     } on TimeoutException catch (err) {
       print('Timed out loading data.');

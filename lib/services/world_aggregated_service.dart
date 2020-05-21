@@ -27,7 +27,8 @@ class WorldAggregatedService extends DataProvider {
 
     http.Response response;
     try {
-      response = await http.get(_url).timeout(DataProvider.kTimeoutDuration);
+      var headers = {DataProvider.kHeaderApiKey: AppConfig.apiKey};
+      response = await http.get(_url, headers: headers).timeout(DataProvider.kTimeoutDuration);
     } on TimeoutException catch (err) {
       print('Timed out loading data.');
       throw err;

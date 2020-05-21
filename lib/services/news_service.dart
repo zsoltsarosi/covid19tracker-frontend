@@ -15,7 +15,7 @@ class NewsService extends DataProvider {
     return _singleton;
   }
 
-  NewsService._internal() : super(cacheThresholdInMinutes: 15, fileName: "news");
+  NewsService._internal() : super(cacheThresholdInMinutes: 1, fileName: "news");
 
   List<News> _parseData(String responseBody) {
     final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
@@ -28,7 +28,8 @@ class NewsService extends DataProvider {
 
     http.Response response;
     try {
-      response = await http.get(_url).timeout(DataProvider.kTimeoutDuration);
+      var headers = {DataProvider.kHeaderApiKey: AppConfig.apiKey};
+      response = await http.get(_url, headers: headers).timeout(DataProvider.kTimeoutDuration);
     } on TimeoutException catch (err) {
       print('Timed out loading data.');
       throw err;

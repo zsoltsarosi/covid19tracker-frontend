@@ -6,6 +6,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:path_provider/path_provider.dart';
 
 abstract class DataProvider {
+  
+  @protected
+  static const String kHeaderApiKey = 'X-Api-Key';
 
   @protected
   static Duration kTimeoutDuration = Duration(seconds: 10);
