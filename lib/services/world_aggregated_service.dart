@@ -1,16 +1,17 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:covid19tracker/helper/app_config.dart';
 import 'package:covid19tracker/model/model.dart';
 import 'package:covid19tracker/services/data_provider.dart';
 import 'package:http/http.dart' as http;
 
 class WorldAggregatedService extends DataProvider {
   static final WorldAggregatedService _singleton = WorldAggregatedService._internal();
-
-  String _url = "http://10.0.2.2:54820/api/worldaggregated";
+  static String _url;
 
   factory WorldAggregatedService() {
+    _url = "${AppConfig.baseUrl}worldaggregated";
     return _singleton;
   }
 

@@ -1,16 +1,17 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:covid19tracker/helper/app_config.dart';
 import 'package:covid19tracker/model/model.dart';
 import 'package:covid19tracker/services/data_provider.dart';
 import 'package:http/http.dart' as http;
 
 class NewsService extends DataProvider {
   static final NewsService _singleton = NewsService._internal();
-
-  String _url = "http://10.0.2.2:54820/api/rssnews";
+  static String _url;
 
   factory NewsService() {
+    _url = "${AppConfig.baseUrl}rssnews";
     return _singleton;
   }
 

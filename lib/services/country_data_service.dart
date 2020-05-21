@@ -1,17 +1,18 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:covid19tracker/helper/app_config.dart';
 import 'package:covid19tracker/model/model.dart';
 import 'package:covid19tracker/services/data_provider.dart';
 import 'package:http/http.dart' as http;
 
 class CountryDataService extends DataProvider {
   static final CountryDataService _singleton = CountryDataService._internal();
-
-  String _url = "http://10.0.2.2:54820/api/countrydata";
-  String _urlDetail = "http://10.0.2.2:54820/api/countrydata/##country##";
+  static String _url, _urlDetail;
 
   factory CountryDataService() {
+    _url = "${AppConfig.baseUrl}countrydata";
+    _urlDetail = "${AppConfig.baseUrl}countrydata/##country##";
     return _singleton;
   }
 
