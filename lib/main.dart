@@ -12,7 +12,8 @@ void main({String env}) async {
   final configContent = await rootBundle.loadString(
       'assets/config/$env.json',
     );
-  final config = AppConfig(configContent);
+  // initialize app config
+  AppConfig(configContent);
 
   BlocSupervisor.delegate = SimpleBlocDelegate();
   runApp(MyApp());
