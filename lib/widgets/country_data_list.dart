@@ -23,8 +23,6 @@ class _CountryDataListState extends State<CountryDataList> {
   var _sortIndex = 1;
   var _sortAsc = false;
 
-  final NumberFormat formatter = NumberFormat();
-
   @override
   void initState() {
     super.initState();
@@ -77,7 +75,9 @@ class _CountryDataListState extends State<CountryDataList> {
   @override
   Widget build(BuildContext context) {
     var tr = Translations.of(context);
-    
+    Locale myLocale = Localizations.localeOf(context);
+    NumberFormat formatter = NumberFormat("#,###", myLocale.languageCode);
+
     var data = widget.data;
     data.sort((a, b) {
       switch (_sortIndex) {
@@ -113,8 +113,7 @@ class _CountryDataListState extends State<CountryDataList> {
               onTap: () {
             _select(item);
           }),
-          DataCell(Container(child: Text(formatter.format(item.confirmed), style: confirmedStyle)),
-              onTap: () {
+          DataCell(Container(child: Text(formatter.format(item.confirmed), style: confirmedStyle)), onTap: () {
             _select(item);
           }),
           DataCell(Container(child: Text(formatter.format(item.recovered), style: recoveredStyle)),

@@ -34,7 +34,10 @@ class _MainDataViewState extends State<MainDataView> {
       return Container(width: 0.0, height: 0.0);
     }
 
-    return Text("${tr.change}: ${widget.increaseRate.toStringAsFixed(2)} %", style: textTheme.caption);
+    Locale myLocale = Localizations.localeOf(context);
+    var percent = NumberFormat.decimalPattern(myLocale.languageCode).format(widget.increaseRate);
+
+    return Text("${tr.change}: $percent %", style: textTheme.caption);
   }
 
   @override
@@ -62,8 +65,8 @@ class _MainDataViewState extends State<MainDataView> {
                       color: Theme.of(context).colorScheme.recovered),
                 ),
                 Expanded(
-                  child:
-                      MainData(title: tr.died, value: _data.deaths, color: Theme.of(context).colorScheme.died),
+                  child: MainData(
+                      title: tr.died, value: _data.deaths, color: Theme.of(context).colorScheme.died),
                 ),
               ],
             ),
@@ -74,7 +77,8 @@ class _MainDataViewState extends State<MainDataView> {
                 Expanded(
                   child: _buildIncreaseRate(context),
                 ),
-                Text("${tr.date}: ${DateFormat.yMd(myLocale.languageCode).format(_data.date)}", style: textTheme.caption),
+                Text("${tr.date}: ${DateFormat.yMd(myLocale.languageCode).format(_data.date)}",
+                    style: textTheme.caption),
               ],
             ),
           ),
@@ -85,8 +89,6 @@ class _MainDataViewState extends State<MainDataView> {
 }
 
 class MainData extends StatelessWidget {
-  final NumberFormat formatter = NumberFormat();
-
   final String title;
   final int value;
   final Color color;
@@ -97,6 +99,10 @@ class MainData extends StatelessWidget {
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
     var valueStyle = textTheme.headline6.copyWith(color: color);
+
+    Locale myLocale = Localizations.localeOf(context);
+    NumberFormat formatter = NumberFormat("#,###", myLocale.languageCode);
+
     return Container(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
