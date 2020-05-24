@@ -25,10 +25,12 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var tr = Translations.of(context);
+
     final pages = <TabPage>{
-      TabPage(name: 'World', icon: Icons.public, widget: World()),
-      TabPage(name: 'Countries', icon: Icons.location_on, widget: Countries()),
-      TabPage(name: 'News', icon: Icons.rss_feed, widget: News()),
+      TabPage(name: tr.page_world, icon: Icons.public, widget: World()),
+      TabPage(name: tr.page_countries, icon: Icons.location_on, widget: Countries()),
+      TabPage(name: tr.page_news, icon: Icons.rss_feed, widget: News()),
     };
 
     return AnimatedDrawer(

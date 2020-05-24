@@ -15,6 +15,10 @@ class Translations {
   static Map<String, Map<String, String>> _localizedValues = {
     'hu': {
       'title': 'COVID-19 Információ',
+      'page_world': 'Világ',
+      'page_countries': 'Országok',
+      'page_news': 'Hírek',
+      'page_information': 'Információ',
       'confirmed': 'Fertőzött',
       'recovered': 'Gyógyult',
       'died': 'Elhunyt',
@@ -23,6 +27,10 @@ class Translations {
     },
     'de': {
       'title': 'COVID-19 Tracker',
+      'page_world': 'Welt',
+      'page_countries': 'Länder',
+      'page_news': 'Nachrichten',
+      'page_information': 'Information',
       'confirmed': 'Infizierte',
       'recovered': 'Genesene',
       'died': 'Verstorbene',
@@ -31,6 +39,10 @@ class Translations {
     },
     'en': {
       'title': 'COVID-19 Tracker',
+      'page_world': 'World',
+      'page_countries': 'Countries',
+      'page_news': 'News',
+      'page_information': 'Information',
       'confirmed': 'Confirmed',
       'recovered': 'Recovered',
       'died': 'Died',
@@ -41,6 +53,22 @@ class Translations {
 
   String get title {
     return _localizedValues[locale.languageCode]['title'];
+  }
+
+  String get page_world {
+    return _localizedValues[locale.languageCode]['page_world'];
+  }
+
+  String get page_countries {
+    return _localizedValues[locale.languageCode]['page_countries'];
+  }
+
+  String get page_news {
+    return _localizedValues[locale.languageCode]['page_news'];
+  }
+
+  String get page_information {
+    return _localizedValues[locale.languageCode]['page_information'];
   }
 
   String get confirmed {

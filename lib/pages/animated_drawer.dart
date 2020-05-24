@@ -1,4 +1,5 @@
 import 'package:covid19tracker/constants.dart';
+import 'package:covid19tracker/localization/translations.dart';
 import 'package:covid19tracker/pages/information.dart';
 import 'package:covid19tracker/screens/main_screen.dart';
 import 'package:flutter/material.dart';
@@ -125,6 +126,8 @@ class AnimatedDrawerState extends State<AnimatedDrawer> with SingleTickerProvide
 class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var tr = Translations.of(context);
+    
     return Material(
       color: kMainBgGradient1,
       child: SafeArea(
@@ -148,7 +151,7 @@ class MyDrawer extends StatelessWidget {
                 ),
                 ListTile(
                   leading: Icon(Icons.public),
-                  title: Text('World'),
+                  title: Text(tr.page_world),
                   onTap: () {
                     AnimatedDrawer.of(context).close();
                     MainScreen.of(context).selectPage(0);
@@ -156,7 +159,7 @@ class MyDrawer extends StatelessWidget {
                 ),
                 ListTile(
                   leading: Icon(Icons.location_on),
-                  title: Text('Countries'),
+                  title: Text(tr.page_countries),
                   onTap: () {
                     AnimatedDrawer.of(context).close();
                     MainScreen.of(context).selectPage(1);
@@ -164,7 +167,7 @@ class MyDrawer extends StatelessWidget {
                 ),
                 ListTile(
                   leading: Icon(Icons.rss_feed),
-                  title: Text('News'),
+                  title: Text(tr.page_news),
                   onTap: () {
                     AnimatedDrawer.of(context).close();
                     MainScreen.of(context).selectPage(2);
@@ -172,7 +175,7 @@ class MyDrawer extends StatelessWidget {
                 ),
                 ListTile(
                   leading: Icon(Icons.info),
-                  title: Text('Information'),
+                  title: Text(tr.page_information),
                   onTap: () {
                     Navigator.push(
                       context,
