@@ -1,4 +1,5 @@
 import 'package:covid19tracker/helper/extension_methods.dart';
+import 'package:covid19tracker/localization/translations.dart';
 import 'package:covid19tracker/model/model.dart';
 import 'package:covid19tracker/screens/country_detail.dart';
 import 'package:covid19tracker/widgets/figure_container.dart';
@@ -75,6 +76,8 @@ class _CountryDataListState extends State<CountryDataList> {
 
   @override
   Widget build(BuildContext context) {
+    var tr = Translations.of(context);
+    
     var data = widget.data;
     data.sort((a, b) {
       switch (_sortIndex) {
@@ -135,10 +138,10 @@ class _CountryDataListState extends State<CountryDataList> {
               columnSpacing: 0,
               headingRowHeight: 40,
               columns: [
-                DataColumn(label: Container(child: Text("Country")), onSort: _doSort),
-                DataColumn(label: Container(child: Text("Confirmed")), numeric: true, onSort: _doSort),
-                DataColumn(label: Container(child: Text("Recovered")), numeric: true, onSort: _doSort),
-                DataColumn(label: Container(child: Text("Deaths")), numeric: true, onSort: _doSort),
+                DataColumn(label: Container(child: Text(tr.country)), onSort: _doSort),
+                DataColumn(label: Container(child: Text(tr.confirmed)), numeric: true, onSort: _doSort),
+                DataColumn(label: Container(child: Text(tr.recovered)), numeric: true, onSort: _doSort),
+                DataColumn(label: Container(child: Text(tr.died)), numeric: true, onSort: _doSort),
               ],
               rows: dataRows,
             ),

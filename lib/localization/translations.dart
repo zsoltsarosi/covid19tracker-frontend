@@ -24,6 +24,7 @@ class Translations {
       'died': 'Elhunyt',
       'change': 'Változás',
       'date': 'Dátum',
+      'country': 'Ország',
     },
     'de': {
       'title': 'COVID-19 Tracker',
@@ -36,6 +37,7 @@ class Translations {
       'died': 'Verstorbene',
       'change': 'Dif­fe­renz',
       'date': 'Datum',
+      'country': 'Land',
     },
     'en': {
       'title': 'COVID-19 Tracker',
@@ -48,6 +50,7 @@ class Translations {
       'died': 'Died',
       'change': 'Change',
       'date': 'Date',
+      'country': 'Country',
     },
   };
 
@@ -85,6 +88,9 @@ class Translations {
   }
   String get date {
     return _localizedValues[locale.languageCode]['date'];
+  }
+  String get country {
+    return _localizedValues[locale.languageCode]['country'];
   }
 
 }
