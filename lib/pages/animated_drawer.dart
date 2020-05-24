@@ -2,6 +2,7 @@ import 'package:covid19tracker/constants.dart';
 import 'package:covid19tracker/pages/information.dart';
 import 'package:covid19tracker/screens/main_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AnimatedDrawer extends StatefulWidget {
   final Widget child;
@@ -169,24 +170,40 @@ class MyDrawer extends StatelessWidget {
                     MainScreen.of(context).selectPage(2);
                   },
                 ),
-                Expanded(
-                  child: ListTile(
-                    leading: Icon(Icons.info),
-                    title: Text('Information'),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => InformationPage(),
-                        ),
-                      );
-                    },
+                ListTile(
+                  leading: Icon(Icons.info),
+                  title: Text('Information'),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => InformationPage(),
+                      ),
+                    );
+                  },
+                ),
+                ListTile(
+                  title: Text(
+                    'Version v1.0',
+                    style: Theme.of(context).textTheme.caption,
                   ),
+                ),
+                Expanded(
+                  child: ListTile(),
                 ),
                 ListTile(
                   title: Column(
                     children: <Widget>[
                       Text('Conceptional and UI Design: \u2726 Xuezhou Fan \u2726'),
+                      InkWell(
+                        child: Image.asset('assets/images/buymeapizza.png', height: 30),
+                        onTap: () async {
+                          var link = 'https://www.buymeacoffee.com/Schnee';
+                          if (await canLaunch(link)) {
+                            await launch(link);
+                          }
+                        },
+                      ),
                     ],
                   ),
                 ),

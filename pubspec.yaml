@@ -59,6 +59,7 @@ flutter:
   assets:
     - assets/animation/
     - assets/config/
+    - assets/images/
     - assets/text/information.md
 
   # An image asset can refer to one or more resolution-specific "variants", see
