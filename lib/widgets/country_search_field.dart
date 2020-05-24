@@ -1,5 +1,6 @@
 import 'package:covid19tracker/bloc/country_data/bloc.dart';
 import 'package:covid19tracker/constants.dart';
+import 'package:covid19tracker/localization/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -21,6 +22,7 @@ class _CountrySearchFieldState extends State<CountrySearchField> {
 
   @override
   Widget build(BuildContext context) {
+    var tr = Translations.of(context);
     return TextField(
       inputFormatters: [
         LengthLimitingTextInputFormatter(10),
@@ -50,7 +52,7 @@ class _CountrySearchFieldState extends State<CountrySearchField> {
         ),
         contentPadding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
         prefixIcon: const Icon(Icons.search),
-        hintText: "Search...",
+        hintText: "${tr.search}...",
         border: OutlineInputBorder(
             borderSide: const BorderSide(color: Colors.white, width: 32.0),
             borderRadius: BorderRadius.circular(15.0)),

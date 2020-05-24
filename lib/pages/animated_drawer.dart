@@ -127,6 +127,7 @@ class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var tr = Translations.of(context);
+    var styleSmall = Theme.of(context).textTheme.caption;
     
     return Material(
       color: kMainBgGradient1,
@@ -143,8 +144,8 @@ class MyDrawer extends StatelessWidget {
                   title: Center(
                       child: Column(
                     children: <Widget>[
-                      Text('Created by Zsolt Sarosi with \u2665'),
-                      Text('In the lockdown of Budapest, 2020'),
+                      Text(tr.created_text1),
+                      Text(tr.created_text2),
                       SizedBox(height: 40),
                     ],
                   )),
@@ -186,10 +187,7 @@ class MyDrawer extends StatelessWidget {
                   },
                 ),
                 ListTile(
-                  title: Text(
-                    'Version v1.0',
-                    style: Theme.of(context).textTheme.caption,
-                  ),
+                  title: Text(tr.version, style: styleSmall),
                 ),
                 Expanded(
                   child: ListTile(),
@@ -197,7 +195,6 @@ class MyDrawer extends StatelessWidget {
                 ListTile(
                   title: Column(
                     children: <Widget>[
-                      Text('Conceptional and UI Design: \u2726 Xuezhou Fan \u2726'),
                       InkWell(
                         child: Image.asset('assets/images/buymeapizza.png', height: 30),
                         onTap: () async {
@@ -207,6 +204,7 @@ class MyDrawer extends StatelessWidget {
                           }
                         },
                       ),
+                      Text(tr.created_text3, style: styleSmall),
                     ],
                   ),
                 ),

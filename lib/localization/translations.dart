@@ -25,6 +25,11 @@ class Translations {
       'change': 'Változás',
       'date': 'Dátum',
       'country': 'Ország',
+      'search': 'Keresés',
+      'version': 'Verzió v1.0',
+      'created_text1': 'Készült Budapesten \u2665',
+      'created_text2': 'A kijárási korlátozás alatt, 2020',
+      'created_text3': '\u2726 Készítette: Sárosi Zsolt, Fan Xuezhou. Budapest, 2020 \u2726',
     },
     'de': {
       'title': 'COVID-19 Tracker',
@@ -38,6 +43,11 @@ class Translations {
       'change': 'Dif­fe­renz',
       'date': 'Datum',
       'country': 'Land',
+      'search': 'Suche',
+      'version': 'Version v1.0',
+      'created_text1': 'Entwickelt wurde mit \u2665',
+      'created_text2': 'In Budapest während Lockdown, 2020',
+      'created_text3': '\u2726 Erstellt von: Zsolt Sarosi, Xuezhou Fan. Budapest, 2020 \u2726',
     },
     'en': {
       'title': 'COVID-19 Tracker',
@@ -51,6 +61,11 @@ class Translations {
       'change': 'Change',
       'date': 'Date',
       'country': 'Country',
+      'search': 'Search',
+      'version': 'Version v1.0',
+      'created_text1': 'Created with \u2665',
+      'created_text2': 'In Budapest during lockdown, 2020',
+      'created_text3': '\u2726 Created by: Zsolt Sarosi, Xuezhou Fan. Budapest, 2020 \u2726',
     },
   };
 
@@ -91,6 +106,21 @@ class Translations {
   }
   String get country {
     return _localizedValues[locale.languageCode]['country'];
+  }
+  String get search {
+    return _localizedValues[locale.languageCode]['search'];
+  }
+  String get version {
+    return _localizedValues[locale.languageCode]['version'];
+  }
+  String get created_text1 {
+    return _localizedValues[locale.languageCode]['created_text1'];
+  }
+  String get created_text2 {
+    return _localizedValues[locale.languageCode]['created_text2'];
+  }
+  String get created_text3 {
+    return _localizedValues[locale.languageCode]['created_text3'];
   }
 
 }
