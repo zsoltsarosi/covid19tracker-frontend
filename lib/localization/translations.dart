@@ -22,7 +22,7 @@ class Translations {
       'confirmed': 'Fertőzött',
       'recovered': 'Gyógyult',
       'died': 'Elhunyt',
-      'change': 'Előző naphoz képest',
+      'change': 'Változás',
       'date': 'Dátum',
     },
     'de': {
@@ -34,7 +34,7 @@ class Translations {
       'confirmed': 'Infizierte',
       'recovered': 'Genesene',
       'died': 'Verstorbene',
-      'change': 'Dif­fe­renz zum Vor­tag',
+      'change': 'Dif­fe­renz',
       'date': 'Datum',
     },
     'en': {
