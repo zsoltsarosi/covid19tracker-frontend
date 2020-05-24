@@ -35,7 +35,7 @@ class Translations {
       'title': 'COVID-19 Tracker',
       'page_world': 'Welt',
       'page_countries': 'Länder',
-      'page_news': 'Nachrichten',
+      'page_news': 'News',
       'page_information': 'Information',
       'confirmed': 'Infizierte',
       'recovered': 'Genesene',
