@@ -33,17 +33,24 @@ class _DailyChartState extends State<DailyChart> {
 
   @override
   Widget build(BuildContext context) {
+    Locale myLocale = Localizations.localeOf(context);
+    var numFormatter = NumberFormat("#,###", myLocale.languageCode);
+    var dateFormater = DateFormat.MMMd(myLocale.languageCode);
     return FigureContainer(
         child: charts.LineChart(
       _seriesList,
       animate: false,
       behaviors: [charts.SeriesLegend()],
+      primaryMeasureAxis: charts.NumericAxisSpec(
+        tickFormatterSpec: charts.BasicNumericTickFormatterSpec((num value) {
+          return numFormatter.format(value);
+        }),
+      ),
       domainAxis: charts.NumericAxisSpec(
-        // Make sure that we draw the domain axis line.
         showAxisLine: true,
         tickFormatterSpec: charts.BasicNumericTickFormatterSpec((num value) {
           var date = DateTime(2020, 1, 1).add(Duration(days: value.round()));
-          return DateFormat.MMMd().format(date);
+          return dateFormater.format(date);
         }),
       ),
       defaultRenderer: charts.LineRendererConfig(includeLine: true, includeArea: true, stacked: true),

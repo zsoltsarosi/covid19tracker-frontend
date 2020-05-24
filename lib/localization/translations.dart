@@ -40,7 +40,7 @@ class Translations {
       'confirmed': 'Infizierte',
       'recovered': 'Genesene',
       'died': 'Verstorbene',
-      'change': 'Dif­fe­renz',
+      'change': 'Veränderung',
       'date': 'Datum',
       'country': 'Land',
       'search': 'Suche',
