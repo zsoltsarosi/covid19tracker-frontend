@@ -6,10 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class DailyChart extends StatefulWidget {
+  final List<String> labels;
   final List<SingleDayData> data;
   final ColorScheme colorScheme;
 
-  DailyChart({Key key, @required this.data, @required this.colorScheme})
+  DailyChart({Key key, @required this.labels, @required this.data, @required this.colorScheme})
       : assert(data != null),
         super(key: key);
 
@@ -65,21 +66,21 @@ class _DailyChartState extends State<DailyChart> {
 
     return [
       charts.Series<SingleMetric, int>(
-        id: 'Deaths',
+        id: widget.labels[0],
         domainFn: (SingleMetric data, _) => daysSince2020Jan1(data.date),
         measureFn: (SingleMetric data, _) => data.cases,
         data: died,
         colorFn: (SingleMetric data, _) => _colorScheme.died.toChartColor(),
       ),
       charts.Series<SingleMetric, int>(
-        id: 'Recovered',
+        id: widget.labels[1],
         domainFn: (SingleMetric data, _) => daysSince2020Jan1(data.date),
         measureFn: (SingleMetric data, _) => data.cases,
         data: recovered,
         colorFn: (SingleMetric data, _) => _colorScheme.recovered.toChartColor(),
       ),
       charts.Series<SingleMetric, int>(
-          id: 'Confirmed',
+          id: widget.labels[2],
           domainFn: (SingleMetric data, _) => daysSince2020Jan1(data.date),
           measureFn: (SingleMetric data, _) => data.cases,
           data: uncertain,

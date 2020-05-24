@@ -1,4 +1,5 @@
 import 'package:covid19tracker/constants.dart';
+import 'package:covid19tracker/localization/translations.dart';
 import 'package:covid19tracker/pages/animated_drawer.dart';
 import 'package:covid19tracker/pages/countries.dart';
 import 'package:covid19tracker/pages/information.dart';
@@ -49,7 +50,7 @@ class _MainScreenState extends State<MainScreen> {
           appBar: AppBar(
             backgroundColor: const Color(0x00000000),
             elevation: 0.0,
-            title: Center(child: Text("COVID-19 Tracker")),
+            title: Center(child: Text(Translations.of(context).title)),
             leading: Builder(
               builder: (context) {
                 return IconButton(

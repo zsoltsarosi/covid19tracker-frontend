@@ -1,5 +1,6 @@
 import 'package:covid19tracker/base/future_builder_state.dart';
 import 'package:covid19tracker/constants.dart';
+import 'package:covid19tracker/localization/translations.dart';
 import 'package:covid19tracker/model/model.dart';
 import 'package:covid19tracker/services/country_data_service.dart';
 import 'package:covid19tracker/widgets/daily_chart.dart';
@@ -59,6 +60,7 @@ class _CountryDetailState extends FutureBuilderState<CountryDetail> {
 
   @override
   Widget build(BuildContext context) {
+    var tr = Translations.of(context);
     return FutureBuilder<List<CountryData>>(
       future: this.getDataFuture,
       builder: (BuildContext context, AsyncSnapshot<List<CountryData>> snapshot) {
@@ -80,7 +82,10 @@ class _CountryDetailState extends FutureBuilderState<CountryDetail> {
                 children: <Widget>[
                   Expanded(child: MainDataView(data: snapshot.data.last), flex: 1),
                   Expanded(
-                      child: DailyChart(data: snapshot.data, colorScheme: Theme.of(context).colorScheme),
+                      child: DailyChart(
+                          labels: [tr.died, tr.recovered, tr.confirmed],
+                          data: snapshot.data,
+                          colorScheme: Theme.of(context).colorScheme),
                       flex: 4),
                 ],
               ),

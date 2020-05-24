@@ -1,5 +1,6 @@
 import 'package:covid19tracker/base/future_builder_state.dart';
 import 'package:covid19tracker/bloc/world_data/bloc.dart';
+import 'package:covid19tracker/localization/translations.dart';
 import 'package:covid19tracker/model/model.dart';
 import 'package:covid19tracker/services/world_aggregated_service.dart';
 import 'package:covid19tracker/widgets/daily_chart.dart';
@@ -14,12 +15,19 @@ class World extends StatefulWidget {
 
 class _WorldState extends FutureBuilderState<World> {
   Widget _buildDataView(List<WorldAggregated> data) {
+    var tr = Translations.of(context);
+
     return Container(
       // color: Colors.blueGrey[200],
       child: Column(
         children: <Widget>[
           Expanded(child: MainDataView(data: data.last, increaseRate: data.last.increaseRate), flex: 1),
-          Expanded(child: DailyChart(data: data, colorScheme: Theme.of(context).colorScheme), flex: 3),
+          Expanded(
+              child: DailyChart(
+                  labels: [tr.died, tr.recovered, tr.confirmed],
+                  data: data,
+                  colorScheme: Theme.of(context).colorScheme),
+              flex: 3),
         ],
       ),
     );

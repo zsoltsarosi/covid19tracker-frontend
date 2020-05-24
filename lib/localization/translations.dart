@@ -15,18 +15,50 @@ class Translations {
   static Map<String, Map<String, String>> _localizedValues = {
     'hu': {
       'title': 'COVID-19 Információ',
+      'confirmed': 'Fertőzött',
+      'recovered': 'Gyógyult',
+      'died': 'Elhunyt',
+      'change': 'Előző naphoz képest',
+      'date': 'Dátum',
     },
     'de': {
       'title': 'COVID-19 Tracker',
+      'confirmed': 'Infizierte',
+      'recovered': 'Genesene',
+      'died': 'Verstorbene',
+      'change': 'Dif­fe­renz zum Vor­tag',
+      'date': 'Datum',
     },
     'en': {
       'title': 'COVID-19 Tracker',
+      'confirmed': 'Confirmed',
+      'recovered': 'Recovered',
+      'died': 'Died',
+      'change': 'Change',
+      'date': 'Date',
     },
   };
 
   String get title {
     return _localizedValues[locale.languageCode]['title'];
   }
+
+  String get confirmed {
+    return _localizedValues[locale.languageCode]['confirmed'];
+  }
+  String get recovered {
+    return _localizedValues[locale.languageCode]['recovered'];
+  }
+  String get died {
+    return _localizedValues[locale.languageCode]['died'];
+  }
+  String get change {
+    return _localizedValues[locale.languageCode]['change'];
+  }
+  String get date {
+    return _localizedValues[locale.languageCode]['date'];
+  }
+
 }
 
 class TranslationsDelegate extends LocalizationsDelegate<Translations> {

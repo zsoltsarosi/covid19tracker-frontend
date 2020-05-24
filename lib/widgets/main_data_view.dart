@@ -1,4 +1,5 @@
 import 'package:covid19tracker/helper/extension_methods.dart';
+import 'package:covid19tracker/localization/translations.dart';
 import 'package:covid19tracker/model/single_day_data.dart';
 import 'package:covid19tracker/widgets/figure_container.dart';
 import 'package:flutter/material.dart';
@@ -27,17 +28,20 @@ class _MainDataViewState extends State<MainDataView> {
 
   Widget _buildIncreaseRate(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
+    var tr = Translations.of(context);
 
     if (widget.increaseRate == null) {
       return Container(width: 0.0, height: 0.0);
     }
 
-    return Text("Change: ${widget.increaseRate.toStringAsFixed(2)} %", style: textTheme.caption);
+    return Text("${tr.change}: ${widget.increaseRate.toStringAsFixed(2)} %", style: textTheme.caption);
   }
 
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
+    var tr = Translations.of(context);
+    Locale myLocale = Localizations.localeOf(context);
 
     return FigureContainer(
       child: Column(
@@ -47,19 +51,19 @@ class _MainDataViewState extends State<MainDataView> {
               children: <Widget>[
                 Expanded(
                   child: MainData(
-                      title: "Confirmed",
+                      title: tr.confirmed,
                       value: _data.confirmed,
                       color: Theme.of(context).colorScheme.confirmed),
                 ),
                 Expanded(
                   child: MainData(
-                      title: "Recovered",
+                      title: tr.recovered,
                       value: _data.recovered,
                       color: Theme.of(context).colorScheme.recovered),
                 ),
                 Expanded(
                   child:
-                      MainData(title: "Died", value: _data.deaths, color: Theme.of(context).colorScheme.died),
+                      MainData(title: tr.died, value: _data.deaths, color: Theme.of(context).colorScheme.died),
                 ),
               ],
             ),
@@ -70,7 +74,7 @@ class _MainDataViewState extends State<MainDataView> {
                 Expanded(
                   child: _buildIncreaseRate(context),
                 ),
-                Text("Date: ${DateFormat.yMd().format(_data.date)}", style: textTheme.caption),
+                Text("${tr.date}: ${DateFormat.yMd(myLocale.languageCode).format(_data.date)}", style: textTheme.caption),
               ],
             ),
           ),
