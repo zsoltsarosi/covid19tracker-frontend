@@ -29,7 +29,7 @@ class Translations {
       'version': 'Verzió v1.0',
       'created_text1': 'Készült Budapesten \u2665',
       'created_text2': 'A kijárási korlátozás alatt, 2020',
-      'created_text3': '\u2726 Készítette: Sárosi Zsolt, Fan Xuezhou. Budapest, 2020 \u2726',
+      'created_text3': '',
     },
     'de': {
       'title': 'COVID-19 Tracker',
@@ -57,7 +57,7 @@ class Translations {
       'page_information': 'Information',
       'confirmed': 'Confirmed',
       'recovered': 'Recovered',
-      'died': 'Died',
+      'died': 'Deaths',
       'change': 'Change',
       'date': 'Date',
       'country': 'Country',
