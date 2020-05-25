@@ -144,15 +144,15 @@ class MyDrawer extends StatelessWidget {
                   title: Center(
                       child: Column(
                     children: <Widget>[
-                      Text(tr.created_text1),
-                      Text(tr.created_text2),
+                      Text(tr.createdText1),
+                      Text(tr.createdText2),
                       SizedBox(height: 40),
                     ],
                   )),
                 ),
                 ListTile(
                   leading: Icon(Icons.public),
-                  title: Text(tr.page_world),
+                  title: Text(tr.pageWorld),
                   onTap: () {
                     AnimatedDrawer.of(context).close();
                     MainScreen.of(context).selectPage(0);
@@ -160,7 +160,7 @@ class MyDrawer extends StatelessWidget {
                 ),
                 ListTile(
                   leading: Icon(Icons.location_on),
-                  title: Text(tr.page_countries),
+                  title: Text(tr.pageCountries),
                   onTap: () {
                     AnimatedDrawer.of(context).close();
                     MainScreen.of(context).selectPage(1);
@@ -168,7 +168,7 @@ class MyDrawer extends StatelessWidget {
                 ),
                 ListTile(
                   leading: Icon(Icons.rss_feed),
-                  title: Text(tr.page_news),
+                  title: Text(tr.pageNews),
                   onTap: () {
                     AnimatedDrawer.of(context).close();
                     MainScreen.of(context).selectPage(2);
@@ -176,7 +176,7 @@ class MyDrawer extends StatelessWidget {
                 ),
                 ListTile(
                   leading: Icon(Icons.info),
-                  title: Text(tr.page_information),
+                  title: Text(tr.pageInformation),
                   onTap: () {
                     Navigator.push(
                       context,
@@ -204,7 +204,7 @@ class MyDrawer extends StatelessWidget {
                           }
                         },
                       ),
-                      Text(tr.created_text3, style: styleSmall),
+                      Text(tr.createdText3, style: styleSmall),
                     ],
                   ),
                 ),

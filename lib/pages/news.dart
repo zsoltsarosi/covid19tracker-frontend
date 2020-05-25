@@ -28,21 +28,21 @@ class _NewsState extends FutureBuilderState<News> {
 
     if (difference.inHours > 24) {
       if (difference.inDays > 1) {
-        return tr.news_days_ago.replaceFirst("##", difference.inDays.toString());
+        return tr.newsDaysAgo.replaceFirst("##", difference.inDays.toString());
       } else {
-        return tr.news_day_ago.replaceFirst("##", difference.inDays.toString());
+        return tr.newsDayAgo.replaceFirst("##", difference.inDays.toString());
       }
     } else if (difference.inMinutes >= 60) {
       if (difference.inHours > 1) {
-        return tr.news_hours_ago.replaceFirst("##", difference.inHours.toString());
+        return tr.newsHoursAgo.replaceFirst("##", difference.inHours.toString());
       } else {
-        return tr.news_hour_ago.replaceFirst("##", difference.inHours.toString());
+        return tr.newsHourAgo.replaceFirst("##", difference.inHours.toString());
       }
     } else {
       if (difference.inMinutes > 1) {
-        return tr.news_minutes_ago.replaceFirst("##", difference.inMinutes.toString());
+        return tr.newsMinutesAgo.replaceFirst("##", difference.inMinutes.toString());
       } else {
-        return tr.news_minute_ago.replaceFirst("##", difference.inMinutes.toString());
+        return tr.newsMinuteAgo.replaceFirst("##", difference.inMinutes.toString());
       }
     }
   }

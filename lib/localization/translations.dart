@@ -94,19 +94,19 @@ class Translations {
     return _localizedValues[locale.languageCode]['title'];
   }
 
-  String get page_world {
+  String get pageWorld {
     return _localizedValues[locale.languageCode]['page_world'];
   }
 
-  String get page_countries {
+  String get pageCountries {
     return _localizedValues[locale.languageCode]['page_countries'];
   }
 
-  String get page_news {
+  String get pageNews {
     return _localizedValues[locale.languageCode]['page_news'];
   }
 
-  String get page_information {
+  String get pageInformation {
     return _localizedValues[locale.languageCode]['page_information'];
   }
 
@@ -134,32 +134,32 @@ class Translations {
   String get version {
     return _localizedValues[locale.languageCode]['version'];
   }
-  String get created_text1 {
+  String get createdText1 {
     return _localizedValues[locale.languageCode]['created_text1'];
   }
-  String get created_text2 {
+  String get createdText2 {
     return _localizedValues[locale.languageCode]['created_text2'];
   }
-  String get created_text3 {
+  String get createdText3 {
     return _localizedValues[locale.languageCode]['created_text3'];
   }
 
-  String get news_minute_ago {
+  String get newsMinuteAgo {
     return _localizedValues[locale.languageCode]['news_minute_ago'];
   }
-  String get news_minutes_ago {
+  String get newsMinutesAgo {
     return _localizedValues[locale.languageCode]['news_minutes_ago'];
   }
-  String get news_hour_ago {
+  String get newsHourAgo {
     return _localizedValues[locale.languageCode]['news_hour_ago'];
   }
-  String get news_hours_ago {
+  String get newsHoursAgo {
     return _localizedValues[locale.languageCode]['news_hours_ago'];
   }
-  String get news_day_ago {
+  String get newsDayAgo {
     return _localizedValues[locale.languageCode]['news_day_ago'];
   }
-  String get news_days_ago {
+  String get newsDaysAgo {
     return _localizedValues[locale.languageCode]['news_days_ago'];
   }
 

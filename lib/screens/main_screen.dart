@@ -28,9 +28,9 @@ class _MainScreenState extends State<MainScreen> {
     var tr = Translations.of(context);
 
     final pages = <TabPage>{
-      TabPage(name: tr.page_world, icon: Icons.public, widget: World()),
-      TabPage(name: tr.page_countries, icon: Icons.location_on, widget: Countries()),
-      TabPage(name: tr.page_news, icon: Icons.rss_feed, widget: News()),
+      TabPage(name: tr.pageWorld, icon: Icons.public, widget: World()),
+      TabPage(name: tr.pageCountries, icon: Icons.location_on, widget: Countries()),
+      TabPage(name: tr.pageNews, icon: Icons.rss_feed, widget: News()),
     };
 
     return AnimatedDrawer(
