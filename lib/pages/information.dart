@@ -1,4 +1,5 @@
 import 'package:covid19tracker/constants.dart';
+import 'package:covid19tracker/localization/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -6,9 +7,13 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class InformationPage extends StatelessWidget {
-  Future<String> readFile() async {
+  Future<String> readFile(String languageCode) async {
     try {
-      return await rootBundle.loadString('assets/text/information.md');
+      if (!['hu', 'de', 'en'].contains(languageCode)) {
+        // fallback to english
+        languageCode = 'en';
+      }
+      return await rootBundle.loadString('assets/text/information_$languageCode.md');
     } catch (e) {
       return "";
     }
@@ -16,6 +21,8 @@ class InformationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var tr = Translations.of(context);
+    Locale myLocale = Localizations.localeOf(context);
     return Stack(children: [
       Container(color: kMainBgGradient1),
       Scaffold(
@@ -23,7 +30,7 @@ class InformationPage extends StatelessWidget {
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(40.0),
             child: AppBar(
-              title: Text("Information and Tips"),
+              title: Text(tr.information),
             ),
           ),
           body: SafeArea(
@@ -32,7 +39,7 @@ class InformationPage extends StatelessWidget {
                   child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: FutureBuilder(
-                        future: readFile(),
+                        future: readFile(myLocale.languageCode),
                         builder: (context, snapshot) {
                           if (snapshot.connectionState != ConnectionState.done) {
                             return Container(width: 0.0, height: 0.0);

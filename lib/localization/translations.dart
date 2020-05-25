@@ -36,6 +36,7 @@ class Translations {
       'news_hours_ago': '## órája',
       'news_day_ago': '## napja',
       'news_days_ago': '## napja',
+      'information': 'Információk és tippek',
     },
     'de': {
       'title': 'COVID-19 Tracker',
@@ -60,6 +61,7 @@ class Translations {
       'news_hours_ago': 'vor ## Stunden',
       'news_day_ago': 'vor ## Tag',
       'news_days_ago': 'vor ## Tagen',
+      'information': 'Informationen und Tipps',
     },
     'en': {
       'title': 'COVID-19 Tracker',
@@ -84,6 +86,7 @@ class Translations {
       'news_hours_ago': '## hours ago',
       'news_day_ago': '## day ago',
       'news_days_ago': '## days ago',
+      'information': 'Information and Tips',
     },
   };
 
@@ -158,6 +161,10 @@ class Translations {
   }
   String get news_days_ago {
     return _localizedValues[locale.languageCode]['news_days_ago'];
+  }
+
+  String get information {
+    return _localizedValues[locale.languageCode]['information'];
   }
 
 }
