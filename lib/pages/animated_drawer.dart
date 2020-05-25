@@ -3,6 +3,7 @@ import 'package:covid19tracker/localization/translations.dart';
 import 'package:covid19tracker/pages/information.dart';
 import 'package:covid19tracker/screens/main_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AnimatedDrawer extends StatefulWidget {
@@ -124,11 +125,15 @@ class AnimatedDrawerState extends State<AnimatedDrawer> with SingleTickerProvide
 }
 
 class MyDrawer extends StatelessWidget {
+  Future<PackageInfo> _readVersionInfo() async {
+    return await PackageInfo.fromPlatform();
+  }
+
   @override
   Widget build(BuildContext context) {
     var tr = Translations.of(context);
     var styleSmall = Theme.of(context).textTheme.caption;
-    
+
     return Material(
       color: kMainBgGradient1,
       child: SafeArea(
@@ -186,8 +191,18 @@ class MyDrawer extends StatelessWidget {
                     );
                   },
                 ),
-                ListTile(
-                  title: Text(tr.version, style: styleSmall),
+                FutureBuilder<PackageInfo>(
+                  future: this._readVersionInfo(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      var text = tr.version.replaceFirst("##", snapshot.data.version);
+                      return ListTile(
+                        title: Text(text, style: styleSmall),
+                      );
+                    } else {
+                      return ListTile();
+                    }
+                  },
                 ),
                 Expanded(
                   child: ListTile(),

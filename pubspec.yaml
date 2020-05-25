@@ -1,5 +1,5 @@
 name: covid19tracker
-description: A new Flutter project.
+description: COVID-19 Information App
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -37,6 +37,7 @@ dependencies:
   url_launcher:
   flutter_markdown:
   flare_flutter:
+  package_info:
 
 dev_dependencies:
   flutter_test:
