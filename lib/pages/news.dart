@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:covid19tracker/base/future_builder_state.dart';
 import 'package:covid19tracker/bloc/news/bloc.dart';
 import 'package:covid19tracker/constants.dart';
+import 'package:covid19tracker/localization/translations.dart';
 import 'package:covid19tracker/model/model.dart' as model;
 import 'package:covid19tracker/screens/news_reader.dart';
 import 'package:covid19tracker/services/news_service.dart';
@@ -18,27 +19,30 @@ class News extends StatefulWidget {
 
 class _NewsState extends FutureBuilderState<News> {
   String _getNewsDateString(model.News news) {
+
+    var tr = Translations.of(context);
+    
     var local = news.date.toLocal();
     var now = DateTime.now();
     var difference = now.difference(local);
 
     if (difference.inHours > 24) {
       if (difference.inDays > 1) {
-        return "${difference.inDays} days ago";
+        return tr.news_days_ago.replaceFirst("##", difference.inDays.toString());
       } else {
-        return "${difference.inDays} day ago";
+        return tr.news_day_ago.replaceFirst("##", difference.inDays.toString());
       }
     } else if (difference.inMinutes >= 60) {
       if (difference.inHours > 1) {
-        return "${difference.inHours} hours ago";
+        return tr.news_hours_ago.replaceFirst("##", difference.inHours.toString());
       } else {
-        return "${difference.inHours} hour ago";
+        return tr.news_hour_ago.replaceFirst("##", difference.inHours.toString());
       }
     } else {
       if (difference.inMinutes > 1) {
-        return "${difference.inMinutes} minutes ago";
+        return tr.news_minutes_ago.replaceFirst("##", difference.inMinutes.toString());
       } else {
-        return "${difference.inMinutes} minute ago";
+        return tr.news_minute_ago.replaceFirst("##", difference.inMinutes.toString());
       }
     }
   }

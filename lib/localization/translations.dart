@@ -30,6 +30,12 @@ class Translations {
       'created_text1': 'Készült Budapesten \u2665',
       'created_text2': 'A kijárási korlátozás alatt, 2020',
       'created_text3': '',
+      'news_minute_ago': '## perce',
+      'news_minutes_ago': '## perce',
+      'news_hour_ago': '## órája',
+      'news_hours_ago': '## órája',
+      'news_day_ago': '## napja',
+      'news_days_ago': '## napja',
     },
     'de': {
       'title': 'COVID-19 Tracker',
@@ -48,6 +54,12 @@ class Translations {
       'created_text1': 'Entwickelt wurde mit \u2665',
       'created_text2': 'In Budapest während Lockdown, 2020',
       'created_text3': '\u2726 Erstellt von: Zsolt Sarosi, Xuezhou Fan. Budapest, 2020 \u2726',
+      'news_minute_ago': 'vor ## Minute',
+      'news_minutes_ago': 'vor ## Minuten',
+      'news_hour_ago': 'vor ## Stunde',
+      'news_hours_ago': 'vor ## Stunden',
+      'news_day_ago': 'vor ## Tag',
+      'news_days_ago': 'vor ## Tagen',
     },
     'en': {
       'title': 'COVID-19 Tracker',
@@ -66,6 +78,12 @@ class Translations {
       'created_text1': 'Created with \u2665',
       'created_text2': 'In Budapest during lockdown, 2020',
       'created_text3': '\u2726 Created by: Zsolt Sarosi, Xuezhou Fan. Budapest, 2020 \u2726',
+      'news_minute_ago': '## minute ago',
+      'news_minutes_ago': '## minutes ago',
+      'news_hour_ago': '## hour ago',
+      'news_hours_ago': '## hours ago',
+      'news_day_ago': '## day ago',
+      'news_days_ago': '## days ago',
     },
   };
 
@@ -121,6 +139,25 @@ class Translations {
   }
   String get created_text3 {
     return _localizedValues[locale.languageCode]['created_text3'];
+  }
+
+  String get news_minute_ago {
+    return _localizedValues[locale.languageCode]['news_minute_ago'];
+  }
+  String get news_minutes_ago {
+    return _localizedValues[locale.languageCode]['news_minutes_ago'];
+  }
+  String get news_hour_ago {
+    return _localizedValues[locale.languageCode]['news_hour_ago'];
+  }
+  String get news_hours_ago {
+    return _localizedValues[locale.languageCode]['news_hours_ago'];
+  }
+  String get news_day_ago {
+    return _localizedValues[locale.languageCode]['news_day_ago'];
+  }
+  String get news_days_ago {
+    return _localizedValues[locale.languageCode]['news_days_ago'];
   }
 
 }
