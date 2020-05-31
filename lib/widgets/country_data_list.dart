@@ -59,19 +59,6 @@ class _CountryDataListState extends State<CountryDataList> {
     }
   }
 
-  String _countryFlag(String countryCode) {
-    if (countryCode == null || countryCode.isEmpty) return "";
-
-    int flagOffset = 0x1F1E6;
-    int asciiOffset = 0x41;
-
-    int firstChar = countryCode.codeUnitAt(0) - asciiOffset + flagOffset;
-    int secondChar = countryCode.codeUnitAt(1) - asciiOffset + flagOffset;
-
-    String emoji = String.fromCharCode(firstChar) + String.fromCharCode(secondChar);
-    return emoji;
-  }
-
   @override
   Widget build(BuildContext context) {
     var tr = Translations.of(context);
@@ -109,7 +96,7 @@ class _CountryDataListState extends State<CountryDataList> {
         DataRow(cells: [
           DataCell(
               Container(
-                  child: Text("${_countryFlag(item.countryIso2)} ${item.country}", style: labelTextStyle)),
+                  child: Text("${item.countryIso2.toCountryEmoji()} ${item.country}", style: labelTextStyle)),
               onTap: () {
             _select(item);
           }),
