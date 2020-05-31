@@ -17,8 +17,8 @@ class CountryData extends SingleDayData {
       confirmed: json['c'] as int,
       recovered: json['r'] as int,
       deaths: json['d'] as int,
-      latitude: json['lat'].toDouble(),
-      longitude: json['lon'].toDouble(),
+      latitude: json['lat']?.toDouble(),
+      longitude: json['lon']?.toDouble(),
     );
   }
 }
