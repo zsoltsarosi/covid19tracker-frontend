@@ -15,7 +15,7 @@ class NewsService extends DataProvider {
     return _singleton;
   }
 
-  NewsService._internal() : super(cacheThresholdInMinutes: 1, fileName: "news");
+  NewsService._internal() : super(cacheThresholdInMinutes: 10, fileName: "news");
 
   List<News> _parseData(String responseBody) {
     final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
