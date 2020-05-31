@@ -77,7 +77,7 @@ class Translations {
       'country': 'Country',
       'search': 'Search',
       'version': 'Version v##',
-      'created_text1': 'Created with \u2665',
+      'created_text1': 'Made with \u2665',
       'created_text2': 'In Budapest during lockdown, 2020',
       'created_text3': '\u2726 Created by: Zsolt Sarosi and Xuezhou Fan. Budapest, 2020 \u2726',
       'news_minute_ago': '## minute ago',
