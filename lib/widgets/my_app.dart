@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
       onGenerateTitle: (BuildContext context) => Translations.of(context).title,
       localizationsDelegates: [
         const TranslationsDelegate(),
+        GlobalCupertinoLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
