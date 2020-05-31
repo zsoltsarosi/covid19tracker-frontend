@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:ui';
 
 import 'package:covid19tracker/helper/app_config.dart';
 import 'package:covid19tracker/model/model.dart';
@@ -9,13 +10,18 @@ import 'package:http/http.dart' as http;
 class NewsService extends DataProvider {
   static final NewsService _singleton = NewsService._internal();
   static String _url;
+  static String _countryCode;
+  static String _languageCode;
 
-  factory NewsService() {
-    _url = "${AppConfig.baseUrl}rssnews";
+  factory NewsService(Locale locale) {
+    _languageCode = locale.languageCode;
+    _countryCode = locale.countryCode;
+
+    _url = "${AppConfig.baseUrl}rssnews?country=$_countryCode&language=$_languageCode";
     return _singleton;
   }
 
-  NewsService._internal() : super(cacheThresholdInMinutes: 10, fileName: "news");
+  NewsService._internal() : super(cacheThresholdInMinutes: 10, fileName: "news_$_languageCode-$_countryCode");
 
   List<News> _parseData(String responseBody) {
     final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();

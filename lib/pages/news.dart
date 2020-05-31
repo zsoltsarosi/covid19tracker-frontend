@@ -117,8 +117,9 @@ class _NewsState extends FutureBuilderState<News> {
 
   @override
   Widget build(BuildContext context) {
+    Locale myLocale = Localizations.localeOf(context);
     return BlocProvider(
-        create: (context) => NewsBloc(service: NewsService())..add(NewsFetch()),
+        create: (context) => NewsBloc(service: NewsService(myLocale))..add(NewsFetch()),
         child: BlocBuilder<NewsBloc, NewsState>(
           builder: (context, state) {
             if (state is NewsLoaded) {
