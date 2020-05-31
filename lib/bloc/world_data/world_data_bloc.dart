@@ -30,6 +30,9 @@ class WorldDataBloc extends Bloc<WorldDataEvent, WorldDataState> {
     final currentState = state;
     if (event is WorldDataFetch && !_hasReachedMax(currentState)) {
       try {
+        if (currentState is WorldDataFailure) {
+          yield WorldDataInitial();
+        }
         if (currentState is WorldDataInitial || currentState is WorldDataFailure) {
           final worldData = await this.service.getData();
           yield WorldDataLoaded(worldData: worldData);

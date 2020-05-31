@@ -60,7 +60,10 @@ class CountryDataService extends DataProvider {
       // update cache in background if it is too old
       if (DateTime.now().toUtc().difference(cacheData.timeStamp).inMinutes > cacheThresholdInMinutes) {
         print('Cached data too old.');
-        _requestDataAndUpdateCache().catchError((e, s) => print(e));
+        _requestDataAndUpdateCache().catchError((e, s) {
+          print(e);
+          throw e;
+        });
       }
 
       print('Returning data from cache.');
@@ -70,7 +73,10 @@ class CountryDataService extends DataProvider {
 
     // no chached data
     print('Cached data not found.');
-    var data = await _requestDataAndUpdateCache().catchError((e, s) => print(e));
+    var data = await _requestDataAndUpdateCache().catchError((e, s) {
+      print(e);
+      throw e;
+    });
     return _filteredData(data, filter);
   }
 

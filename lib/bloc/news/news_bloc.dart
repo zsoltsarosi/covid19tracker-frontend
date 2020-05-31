@@ -30,6 +30,9 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
     final currentState = state;
     if (event is NewsFetch && !_hasReachedMax(currentState)) {
       try {
+        if (currentState is NewsFailure) {
+          yield NewsInitial();
+        }
         if (currentState is NewsInitial || currentState is NewsFailure) {
           final news = await this.service.getData();
           yield NewsLoaded(news: news);
