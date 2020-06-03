@@ -16,5 +16,5 @@ void main({String env}) async {
   AppConfig(configContent);
 
   BlocSupervisor.delegate = SimpleBlocDelegate();
-  runApp(MyApp());
+  runApp(MyApp(env: env));
 }

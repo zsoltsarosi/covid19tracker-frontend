@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  final String env;
+  MyApp({this.env});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -22,7 +24,7 @@ class MyApp extends StatelessWidget {
         const Locale('de', ''),
         const Locale('en', ''),
       ],
-      debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: env == "dev",
       theme: new ThemeData(
         brightness: Brightness.light,
         primaryColorBrightness: Brightness.dark,
