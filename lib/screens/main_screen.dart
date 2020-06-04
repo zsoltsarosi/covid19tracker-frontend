@@ -57,26 +57,26 @@ class _MainScreenState extends State<MainScreen> {
 
     var actions = <Widget>[
       FlatButton(
-        child: Text(tr.modal_ok),
+        child: Text(tr.modalOk),
         onPressed: () => _launchStore(),
       )
     ];
     if (_versionExpiration == VersionExpiration.ExiresSoon) {
       actions.add(FlatButton(
-        child: Text(tr.modal_cancel),
+        child: Text(tr.modalCancel),
         onPressed: () => Navigator.pop(context),
       ));
     }
 
     var dialogWidget = Platform.isIOS
         ? CupertinoAlertDialog(
-            title: Text(tr.update_title),
-            content: Text(tr.update_available),
+            title: Text(tr.updateTitle),
+            content: Text(tr.updateAvailable),
             actions: actions,
           )
         : AlertDialog(
-            title: Text(tr.update_title),
-            content: Text(tr.update_available),
+            title: Text(tr.updateTitle),
+            content: Text(tr.updateAvailable),
             actions: actions,
           );
 

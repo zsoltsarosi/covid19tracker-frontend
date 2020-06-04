@@ -194,19 +194,19 @@ class Translations {
     return _localizedValues[locale.languageCode]['information'];
   }
 
-  String get update_title {
+  String get updateTitle {
     return _localizedValues[locale.languageCode]['update_title'];
   }
 
-  String get update_available {
+  String get updateAvailable {
     return _localizedValues[locale.languageCode]['update_available'];
   }
 
-  String get modal_ok {
+  String get modalOk {
     return _localizedValues[locale.languageCode]['modal_ok'];
   }
 
-  String get modal_cancel {
+  String get modalCancel {
     return _localizedValues[locale.languageCode]['modal_cancel'];
   }
 }
