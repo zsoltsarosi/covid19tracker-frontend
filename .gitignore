@@ -30,6 +30,9 @@
 .pub/
 /build/
 /assets/config/prod.json
+/android/
+/ios/
+/.vscode/
 
 # Web related
 lib/generated_plugin_registrant.dart
