@@ -38,7 +38,8 @@ dependencies:
   path_provider:
   rxdart:
   url_launcher:
-  webview_flutter:  
+  webview_flutter:
+  store_redirect:
 
 dev_dependencies:
   flutter_test:

@@ -37,6 +37,10 @@ class Translations {
       'news_day_ago': '## napja',
       'news_days_ago': '## napja',
       'information': 'Információk és tippek',
+      'update_title': 'Új verzió',
+      'update_available': 'Új verzió érhető el. Kérjük frissítse az alkalmazást.',
+      'modal_ok': 'Frissítés',
+      'modal_cancel': 'Mégse'
     },
     'de': {
       'title': 'COVID-19 Information',
@@ -62,6 +66,10 @@ class Translations {
       'news_day_ago': 'vor ## Tag',
       'news_days_ago': 'vor ## Tagen',
       'information': 'Informationen und Tipps',
+      'update_title': 'Neue Version',
+      'update_available': 'Neue Version verfügbar. Bitte aktualisieren Sie die App.',
+      'modal_ok': 'Aktualisieren',
+      'modal_cancel': 'Abbrechen'
     },
     'en': {
       'title': 'COVID-19 Information',
@@ -87,6 +95,10 @@ class Translations {
       'news_day_ago': '## day ago',
       'news_days_ago': '## days ago',
       'information': 'Information and Tips',
+      'update_title': 'New Version',
+      'update_available': 'New version available. Please update the app.',
+      'modal_ok': 'Update',
+      'modal_cancel': 'Cancel'
     },
   };
 
@@ -113,33 +125,43 @@ class Translations {
   String get confirmed {
     return _localizedValues[locale.languageCode]['confirmed'];
   }
+
   String get recovered {
     return _localizedValues[locale.languageCode]['recovered'];
   }
+
   String get died {
     return _localizedValues[locale.languageCode]['died'];
   }
+
   String get change {
     return _localizedValues[locale.languageCode]['change'];
   }
+
   String get date {
     return _localizedValues[locale.languageCode]['date'];
   }
+
   String get country {
     return _localizedValues[locale.languageCode]['country'];
   }
+
   String get search {
     return _localizedValues[locale.languageCode]['search'];
   }
+
   String get version {
     return _localizedValues[locale.languageCode]['version'];
   }
+
   String get createdText1 {
     return _localizedValues[locale.languageCode]['created_text1'];
   }
+
   String get createdText2 {
     return _localizedValues[locale.languageCode]['created_text2'];
   }
+
   String get createdText3 {
     return _localizedValues[locale.languageCode]['created_text3'];
   }
@@ -147,18 +169,23 @@ class Translations {
   String get newsMinuteAgo {
     return _localizedValues[locale.languageCode]['news_minute_ago'];
   }
+
   String get newsMinutesAgo {
     return _localizedValues[locale.languageCode]['news_minutes_ago'];
   }
+
   String get newsHourAgo {
     return _localizedValues[locale.languageCode]['news_hour_ago'];
   }
+
   String get newsHoursAgo {
     return _localizedValues[locale.languageCode]['news_hours_ago'];
   }
+
   String get newsDayAgo {
     return _localizedValues[locale.languageCode]['news_day_ago'];
   }
+
   String get newsDaysAgo {
     return _localizedValues[locale.languageCode]['news_days_ago'];
   }
@@ -167,6 +194,21 @@ class Translations {
     return _localizedValues[locale.languageCode]['information'];
   }
 
+  String get update_title {
+    return _localizedValues[locale.languageCode]['update_title'];
+  }
+
+  String get update_available {
+    return _localizedValues[locale.languageCode]['update_available'];
+  }
+
+  String get modal_ok {
+    return _localizedValues[locale.languageCode]['modal_ok'];
+  }
+
+  String get modal_cancel {
+    return _localizedValues[locale.languageCode]['modal_cancel'];
+  }
 }
 
 class TranslationsDelegate extends LocalizationsDelegate<Translations> {

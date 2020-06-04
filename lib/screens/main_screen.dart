@@ -1,11 +1,17 @@
+import 'dart:io';
+
 import 'package:covid19tracker/constants.dart';
+import 'package:covid19tracker/helper/app_config.dart';
 import 'package:covid19tracker/localization/translations.dart';
 import 'package:covid19tracker/pages/animated_drawer.dart';
 import 'package:covid19tracker/pages/countries.dart';
 import 'package:covid19tracker/pages/information.dart';
 import 'package:covid19tracker/pages/news.dart';
 import 'package:covid19tracker/pages/world.dart';
+import 'package:covid19tracker/services/version_update_service.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:store_redirect/store_redirect.dart';
 
 class MainScreen extends StatefulWidget {
   static const routeName = '/home';
@@ -20,8 +26,71 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   PageController _pageController = PageController(initialPage: 0);
+  VersionExpiration _versionExpiration;
 
   void selectPage(int pageIndex) => _pageController.jumpToPage(pageIndex);
+
+  @override
+  void initState() {
+    super.initState();
+
+    var expirationOp = VersionUpdateService().checkExpired();
+    expirationOp.then((value) {
+      _versionExpiration = value;
+      if (_versionExpiration == VersionExpiration.ExiresSoon ||
+          _versionExpiration == VersionExpiration.Expired) {
+        WidgetsBinding.instance.addPostFrameCallback((callback) {
+          _showVersionDialog(context);
+        });
+      }
+    });
+  }
+
+  _launchStore() {
+    StoreRedirect.redirect(androidAppId: AppConfig.androidAppId, iOSAppId: AppConfig.iOSAppId);
+  }
+
+  _showVersionDialog(context) {
+    if (_versionExpiration == null || _versionExpiration == VersionExpiration.NotExpired) return;
+
+    var tr = Translations.of(context);
+
+    var actions = <Widget>[
+      FlatButton(
+        child: Text(tr.modal_ok),
+        onPressed: () => _launchStore(),
+      )
+    ];
+    if (_versionExpiration == VersionExpiration.ExiresSoon) {
+      actions.add(FlatButton(
+        child: Text(tr.modal_cancel),
+        onPressed: () => Navigator.pop(context),
+      ));
+    }
+
+    var dialogWidget = Platform.isIOS
+        ? CupertinoAlertDialog(
+            title: Text(tr.update_title),
+            content: Text(tr.update_available),
+            actions: actions,
+          )
+        : AlertDialog(
+            title: Text(tr.update_title),
+            content: Text(tr.update_available),
+            actions: actions,
+          );
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return WillPopScope(
+          onWillPop: () async => false,
+          child: dialogWidget,
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
