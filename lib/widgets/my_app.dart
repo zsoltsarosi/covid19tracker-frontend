@@ -29,7 +29,6 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.light,
         primaryColorBrightness: Brightness.dark,
         primarySwatch: Colors.blueGrey,
-        fontFamily: 'RobotoCondensed',
       ),
       routes: {
         LoadingScreen.routeName: (context) => LoadingScreen(),
