@@ -196,7 +196,7 @@ class CustomTabBar extends AnimatedWidget implements PreferredSizeWidget {
                 child: Align(
                   alignment: alignment,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
