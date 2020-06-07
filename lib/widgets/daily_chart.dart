@@ -33,6 +33,8 @@ class _DailyChartState extends State<DailyChart> {
 
   @override
   Widget build(BuildContext context) {
+    var textTheme = Theme.of(context).textTheme;
+    var legendStyle = textTheme.caption;
     Locale myLocale = Localizations.localeOf(context);
     var numFormatter = NumberFormat("#,###", myLocale.languageCode);
     var dateFormater = DateFormat.MMMd(myLocale.languageCode);
@@ -40,7 +42,15 @@ class _DailyChartState extends State<DailyChart> {
         child: charts.LineChart(
       _seriesList,
       animate: false,
-      behaviors: [charts.SeriesLegend()],
+      behaviors: [charts.SeriesLegend(
+        // position: charts.BehaviorPosition.inside,
+        // outsideJustification: charts.OutsideJustification.start,
+        cellPadding: new EdgeInsets.only(right: 8.0, bottom: 4.0),
+        entryTextStyle: charts.TextStyleSpec(
+              color: legendStyle.color.toChartColor(),
+              fontFamily: legendStyle.fontFamily,
+              fontSize: legendStyle.fontSize.toInt()),
+      )],
       primaryMeasureAxis: charts.NumericAxisSpec(
         tickFormatterSpec: charts.BasicNumericTickFormatterSpec((num value) {
           return numFormatter.format(value);
