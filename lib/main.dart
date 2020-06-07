@@ -10,11 +10,12 @@ void main({String env}) async {
 
   env = env ?? 'dev';
   final configContent = await rootBundle.loadString(
-      'assets/config/$env.json',
-    );
+    'assets/config/$env.json',
+  );
   // initialize app config
   AppConfig(configContent);
 
   BlocSupervisor.delegate = SimpleBlocDelegate();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(MyApp(env: env));
 }
