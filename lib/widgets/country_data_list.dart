@@ -84,8 +84,8 @@ class _CountryDataListState extends State<CountryDataList> {
 
     TextTheme textTheme = Theme.of(context).textTheme;
 
-    final labelTextStyle = textTheme.bodyText2;
-    final valueTextStyle = textTheme.subtitle1;
+    final labelTextStyle = textTheme.bodyText2.copyWith(fontSize: textTheme.bodyText2.fontSize - 2);
+    final valueTextStyle = textTheme.subtitle1.copyWith(fontSize: textTheme.subtitle1.fontSize - 2);
 
     var confirmedStyle = valueTextStyle.copyWith(color: Theme.of(context).colorScheme.confirmed);
     var recoveredStyle = valueTextStyle.copyWith(color: Theme.of(context).colorScheme.recovered);
@@ -100,7 +100,8 @@ class _CountryDataListState extends State<CountryDataList> {
               onTap: () {
             _select(item);
           }),
-          DataCell(Container(child: Text(formatter.format(item.confirmed), style: confirmedStyle)), onTap: () {
+          DataCell(Container(child: Text(formatter.format(item.confirmed), style: confirmedStyle)),
+              onTap: () {
             _select(item);
           }),
           DataCell(Container(child: Text(formatter.format(item.recovered), style: recoveredStyle)),
